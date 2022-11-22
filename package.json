@@ -5,6 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:local": "next build && npm run export:local && npm run replacer",
+    "export": "next export",
+    "export:local": "next export -o out/political-universe/",
+    "replacer": "node replacer.js",
     "start": "next start",
     "lint": "next lint"
   },
@@ -20,6 +24,7 @@
     "postcss": "^8.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "replace-in-file": "^6.3.5",
     "tailwindcss": "^3.2.4",
     "typescript": "4.9.3"
   },
