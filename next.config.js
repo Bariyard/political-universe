@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true
-  },
+  reactStrictMode: true,
+  swcMinify: true,
   swcMinify: true,
   trailingSlash: true,
+  // basePath: process.env.NODE_ENV === "PRODUCTION" ? "/political-universe" : "",
+  // assetPrefix:
+  //   process.env.NODE_ENV === "PRODUCTION" ? "/political-universe" : "/",
   basePath: "/political-universe",
-  assetPrefix: "/political-universe/",
+  assetPrefix: "/political-universe",
   images: {
     unoptimized: true
   },
