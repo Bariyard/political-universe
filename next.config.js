@@ -6,9 +6,9 @@ const nextConfig = {
   trailingSlash: true,
   // basePath: process.env.NODE_ENV === "PRODUCTION" ? "/political-universe" : "",
   // assetPrefix:
-  //   process.env.NODE_ENV === "PRODUCTION" ? "/political-universe" : "/",
+  //   process.env.NODE_ENV === "PRODUCTION" ? "/political-universe/" : "/",
   basePath: "/political-universe",
-  assetPrefix: "/political-universe",
+  assetPrefix: "/political-universe/",
   images: {
     unoptimized: true
   },
