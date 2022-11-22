@@ -1,13 +1,13 @@
 "use client"
-import './globals.css'
 import "@wevisdemo/ui/styles/index.css";
 
-import WvNavbar from '@wevisdemo/ui/react/navbar';
-import WvNavButton from '@wevisdemo/ui/react/nav-button';
-import WvFooter from '@wevisdemo/ui/react/footer';
-import { useRouter, usePathname } from 'next/navigation'
 
-export default function RootLayout({
+import WvFooter from '@wevisdemo/ui/react/footer';
+import WvNavButton from '@wevisdemo/ui/react/nav-button';
+import WvNavbar from '@wevisdemo/ui/react/navbar';
+import { usePathname, useRouter } from 'next/navigation';
+
+export default function AboutLayout({
   children,
 }: {
   children: React.ReactNode
@@ -22,12 +22,12 @@ export default function RootLayout({
       */}
       <head />
       <body className='min-h-screen overflow-x-hidden'>
-        <WvNavbar title="POLITICAL UNIVERSE" >
-          <WvNavButton active={pathname === '/'} onClick={() => router.replace('/')}>Home</WvNavButton>
-          <WvNavButton active={pathname === '/about'} onClick={() => router.replace('/about')}>About</WvNavButton>
+        <WvNavbar title="POLITICAL UNIVERSE" dark={true} >
+          <WvNavButton dark={true} active={pathname === '/'} onClick={() => router.replace('/')}>Home</WvNavButton>
+          <WvNavButton dark={true} active={pathname === '/about'} onClick={() => router.replace('/about')}>About</WvNavButton>
         </WvNavbar>
         {children}
-        <WvFooter />
+        <WvFooter dark />
       </body>
     </html>
   )
