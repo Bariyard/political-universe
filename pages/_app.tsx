@@ -15,11 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Component {...pageProps} />
-      <WvCookieConsent
-        policyUrl="https://wevis.info/cookies_1-3"
-        cookieOptions={['Analytics']}
-        onAccept={onCookieAccept}
-      />
+      {process.env.NODE_ENV === "production" &&
+        <WvCookieConsent
+          policyUrl="https://wevis.info/cookies_1-3"
+          cookieOptions={['Analytics']}
+          onAccept={onCookieAccept}
+        />
+      }
     </>
   );
 }

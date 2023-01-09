@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  body {
+    font-family: termtem, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+  }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
