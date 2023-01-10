@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <script
           defer
-          data-domain="wevis.info/politics-on-social"
+          data-domain="wevis.info/political-universe"
           src="https://analytics.punchup.world/js/plausible.js"
         ></script>
         <link rel="icon" href="/design_assets/sns/favicon.png" />

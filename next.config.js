@@ -4,21 +4,21 @@ const nextConfig = {
   swcMinify: true,
   swcMinify: true,
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === "PRODUCTION" ? "/political-universe" : "",
+  basePath: process.env.NODE_ENV !== "development" ? "/political-universe" : "",
   assetPrefix:
-    process.env.NODE_ENV === "PRODUCTION" ? "/political-universe/" : "/",
+    process.env.NODE_ENV !== "development" ? "/political-universe/" : "/",
   images: {
     unoptimized: true
   },
   env: {
     BASE_PATH:
-      process.env.NODE_ENV === "PRODUCTION" ? "/political-universe" : "",
+      process.env.NODE_ENV !== "development" ? "/political-universe" : "",
     HOST:
-      process.env.NODE_ENV === "PRODUCTION"
+      process.env.NODE_ENV !== "development"
         ? "https://wevisdemo.github.io"
         : "",
     SECURE_HOST:
-      process.env.NODE_ENV === "PRODUCTION"
+      process.env.NODE_ENV !== "development"
         ? "https://wevisdemo.github.io"
         : "",
 
