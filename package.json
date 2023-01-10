@@ -10,7 +10,8 @@
     "export:local": "next export -o out/political-universe/",
     "replacer": "node replacer.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen-data": "ts-node ./scripts/index.tsx"
   },
   "dependencies": {
     "@types/node": "18.11.9",
@@ -18,6 +19,8 @@
     "@types/react-dom": "18.0.9",
     "@wevisdemo/ui": "^5.2.0",
     "autoprefixer": "^10.4.13",
+    "d3": "^7.8.0",
+    "dayjs": "^1.11.7",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
     "next": "13.0.4",
@@ -29,6 +32,8 @@
     "typescript": "4.9.3"
   },
   "devDependencies": {
-    "concurrently": "^7.6.0"
+    "@types/d3": "^7.4.0",
+    "concurrently": "^7.6.0",
+    "ts-node": "^10.9.1"
   }
 }

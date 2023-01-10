@@ -1,5 +1,7 @@
 import React from 'react'
 import Content1 from './Content1'
+import Content2 from './Content2'
+import Content3 from './Content3'
 import Cover from './Cover'
 
 type Props = {}
@@ -9,8 +11,8 @@ const Section1 = (props: Props) => {
     <div>
       <Cover />
       <Content1 />
-
-
+      <Content2 />
+      <Content3 />
 
       ที่มาของเหตุการณ์
       อ่านวิธีการคัดกรองข่าว
