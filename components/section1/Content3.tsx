@@ -1,5 +1,5 @@
 import EventCard from "../EventCard"
-import { NEGATIVE_ICON_COLOR, NEGATIVE_ICON_TITLE, POSITIVE_ICON_COLOR, POSITIVE_ICON_TITLE } from "../utils"
+import { NEGATIVE_ICON_TITLE, POSITIVE_ICON_TITLE } from "../utils"
 
 type Props = {}
 
@@ -78,12 +78,12 @@ const Content3 = (props: Props) => {
 
   return (
     <div className='flex flex-col items-center text-center
-    max-w-[957px] mx-auto mb-[140px]'>
+    max-w-[740px] mx-auto mb-[140px]'>
       <div className='flex flex-col gap-y-[30px]'>
-        <div className='wv-font-kondolar wv-h4 wv-font-black leading-[125%]'>
+        <div className='wv-kondolar wv-h4 wv-black leading-[125%]'>
           เหตุการณ์ +/- คืออะไร
         </div>
-        <div className='wv-font-anuphan wv-b3 leading-[150%] max-w-[487px] !mx-auto'>
+        <div className='wv-ibmplex wv-b3 leading-[150%] max-w-[487px] !mx-auto'>
           ข้อมูลที่แสดงว่าตัวละครการเมืองไทยที่ถูกคัดเลือกมา สร้างผลดีหรือผลลบต่อสมัยรัฐบาลช่วงเวลานั้น ๆ โดยสามารถอธิบายได้ดังนี้
         </div>
         <div className='flex flex-row gap-[20px] text-neutral-super-black'>
@@ -91,14 +91,14 @@ const Content3 = (props: Props) => {
             <div key={`desc-${index}`}
               className='bg-white rounded-[10px] px-[15px] py-[20px]
                 flex flex-col items-center desktop:w-1/2 h-fit'>
-              <div className='wv-font-kondolar wv-h7 wv-font-black 
+              <div className='wv-kondolar wv-h7 wv-black 
                  !mb-[8px] text-center'>
                 {data.title}
               </div>
-              <div className='wv-font-anuphan wv-b5 leading-[150%] text-left'>
+              <div className='wv-ibmplex wv-b5 leading-[150%] text-left'>
                 {data.content}
               </div>
-              <div className="wv-font-kondolar wv-h9 wv-font-black !mb-[14px] !mt-[8px]">
+              <div className="wv-kondolar wv-h9 wv-black !mb-[14px] !mt-[8px]">
                 ตัวอย่างเหตุการณ์
               </div>
               <div className="flex flex-col  gap-y-[14px]">

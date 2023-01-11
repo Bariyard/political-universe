@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import "swiper/swiper.min.css"; */
+
 @layer base {
   html {
     width: 100vw;
     overflow-x: hidden;
   }
   body {
-    font-family: termtem, sans-serif;
+    family: termtem, sans-serif;
     padding: 0;
     margin: 0;
     background-color: black;
@@ -17,5 +19,44 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-dot {
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    cursor: pointer;
   }
 }

@@ -17,7 +17,7 @@
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
-    "@wevisdemo/ui": "^5.2.0",
+    "@wevisdemo/ui": "^6.0.0",
     "autoprefixer": "^10.4.13",
     "d3": "^7.8.0",
     "dayjs": "^1.11.7",
@@ -28,6 +28,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "replace-in-file": "^6.3.5",
+    "swiper": "^8.4.5",
     "tailwindcss": "^3.2.4",
     "typescript": "4.9.3"
   },

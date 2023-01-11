@@ -1,9 +1,23 @@
-import '../styles/globals.css';
+
+
 import type { AppProps } from 'next/app';
 import '@wevisdemo/ui/styles/index.css';
 const WvCookieConsent = dynamic(() => import('@wevisdemo/ui/react/cookie-consent'), { ssr: false });
 import { initClarity } from '../utils/clarity';
 import dynamic from 'next/dynamic';
+import 'dayjs/locale/th'
+
+// Import Swiper styles
+import "swiper/css/bundle";
+import '../styles/globals.css';
+
+// import Swiper, { Autoplay, Navigation, Pagination } from 'swiper';
+// // init Swiper:
+// const swiper = new Swiper('.swiper', {
+//   // configure Swiper to use modules
+//   modules: [Autoplay, Navigation, Pagination],
+//   // ...
+// });
 
 function onCookieAccept(options: Record<string, boolean>) {
   if (options['Analytics']) {

@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  swcMinify: true,
   trailingSlash: true,
   basePath: process.env.NODE_ENV !== "development" ? "/political-universe" : "",
   assetPrefix:

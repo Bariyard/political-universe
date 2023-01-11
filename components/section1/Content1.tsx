@@ -7,13 +7,13 @@ const Content1 = (props: Props) => {
     <div className='text-center tablet:text-left mb-[150px]'>
       <div className='max-w-[957px] mx-auto mb-[43px]'>
         <div className='flex flex-col tablet:flex-row'>
-          <div className='wv-font-kondolar wv-h4 wv-font-black leading-[125%] flex flex-col gap-y-[4px] !mb-[18px] w-1/2'>
+          <div className='wv-kondolar wv-h4 wv-black leading-[125%] flex flex-col gap-y-[4px] !mb-[18px] w-1/2'>
             <span>10 ปี</span>
             <span>3, 422 เหตุการณ์</span>
             <span>129 ตัวละคร</span>
           </div>
           <div className='w-1/2
-            wv-font-anuphan wv-b3 leading-[150%]'>
+            wv-ibmplex wv-b3 leading-[150%]'>
             การเมืองไทย 10 กว่าปีที่ผ่าน มีเหตุการณ์เกิดขึ้นมากมาย ถูกบันทึกเอาไว้โดยสำนักข่าวเป็นจำนวนมาก
             <br className='tablet:hidden' />
             เมื่อนำข้อมูลข่าวมาร้อยเรียง สร้างความเชื่อมโยงแก่กัน ก็ได้ออกมาเป็นความสัมพันธ์ของ “จักรวาล
@@ -22,7 +22,7 @@ const Content1 = (props: Props) => {
         </div>
       </div>
       <div>
-        <div className='text-center wv-font-kondolar wv-h4 wv-font-black leading-[140%]'>ที่มาของข้อมูล</div>
+        <div className='text-center wv-kondolar wv-h4 wv-black leading-[140%]'>ที่มาของข้อมูล</div>
         <div className='relative max-w-[938px] max-h-[492px] mx-auto'>
           <svg width={938} height={460} viewBox="0 0 938 460" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width={938} height={460} fill="black" />
@@ -170,14 +170,14 @@ const Content1 = (props: Props) => {
           <div className='bg-white text-neutral-super-black
            p-[20px] rounded-[10px] cursor-default'>
             <div className='flex justify-between mb-[40px] p-[10px]'>
-              <div className='wv-font-kondolar wv-h4 leading-[140%] wv-font-black'>
+              <div className='wv-kondolar wv-h4 leading-[140%] wv-black'>
                 Methodology
               </div>
               <svg width={40} height={40} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M5 0C3.67392 0 2.40215 0.526784 1.46447 1.46447C0.526784 2.40215 0 3.67392 0 5L0 35C0 36.3261 0.526784 37.5979 1.46447 38.5355C2.40215 39.4732 3.67392 40 5 40H35C36.3261 40 37.5979 39.4732 38.5355 38.5355C39.4732 37.5979 40 36.3261 40 35V5C40 3.67392 39.4732 2.40215 38.5355 1.46447C37.5979 0.526784 36.3261 0 35 0L5 0ZM29.635 12.135C29.8697 11.9003 30.0016 11.5819 30.0016 11.25C30.0016 10.9181 29.8697 10.5997 29.635 10.365C29.4003 10.1303 29.0819 9.99842 28.75 9.99842C28.4181 9.99842 28.0997 10.1303 27.865 10.365L20 18.2325L12.135 10.365C12.0188 10.2488 11.8808 10.1566 11.729 10.0937C11.5771 10.0308 11.4144 9.99842 11.25 9.99842C11.0856 9.99842 10.9229 10.0308 10.771 10.0937C10.6192 10.1566 10.4812 10.2488 10.365 10.365C10.2488 10.4812 10.1566 10.6192 10.0937 10.771C10.0308 10.9229 9.99842 11.0856 9.99842 11.25C9.99842 11.4144 10.0308 11.5771 10.0937 11.729C10.1566 11.8808 10.2488 12.0188 10.365 12.135L18.2325 20L10.365 27.865C10.1303 28.0997 9.99842 28.4181 9.99842 28.75C9.99842 29.0819 10.1303 29.4003 10.365 29.635C10.5997 29.8697 10.9181 30.0016 11.25 30.0016C11.5819 30.0016 11.9003 29.8697 12.135 29.635L20 21.7675L27.865 29.635C27.9812 29.7512 28.1192 29.8434 28.271 29.9063C28.4229 29.9692 28.5856 30.0016 28.75 30.0016C28.9144 30.0016 29.0771 29.9692 29.229 29.9063C29.3808 29.8434 29.5188 29.7512 29.635 29.635C29.7512 29.5188 29.8434 29.3808 29.9063 29.229C29.9692 29.0771 30.0016 28.9144 30.0016 28.75C30.0016 28.5856 29.9692 28.4229 29.9063 28.271C29.8434 28.1192 29.7512 27.9812 29.635 27.865L21.7675 20L29.635 12.135Z" fill="black" />
               </svg>
             </div>
-            <div className='wv-font-anuphan wv-b3 wv-font-regular'>
+            <div className='wv-ibmplex wv-b3 wv-regular'>
               กระบวนการเก็บข้อมูลชุดนี้ มีดังต่อไปนี้
               1. การเก็บข้อมูลพาดหัวข่าว
               1.1 เลือกพาดหัวข่าวจากข่าวของสำนักข่าวผู้จัดการออนไลน์ เนื่องจากเป็นสำนักข่าวที่มีข่าวย้อนหลังครอบคลุมช่วงเวลาที่ต้องการมากที่สุด
@@ -201,7 +201,7 @@ const Content1 = (props: Props) => {
         }>
         <button className='bg-white rounded-[4px] py-[10px] inline-flex justify-center items-center gap-x-[10px] 
           w-full '>
-          <div className='text-neutral-super-black text-desktop-bold-b1 wv-font-anuphan wv-u1 wv-font-semibold'>อ่านวิธีการคัดกรองข่าว</div>
+          <div className='text-neutral-super-black text-desktop-bold-b1 wv-ibmplex wv-u1 wv-semibold'>อ่านวิธีการคัดกรองข่าว</div>
           <svg width={8} height={5} viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 0L0 0L4 5L8 0Z" fill="black" />
           </svg>
