@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "public/scripts/index.tsx",
-    "scripts/index.mjs"
+    "scripts/index.mjs",
+    "components/utils/stacked.jsx"
   ],
   "exclude": ["node_modules"]
 }
