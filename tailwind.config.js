@@ -44,6 +44,40 @@ module.exports = {
         "transparent-white-50": "#FFFFFF",
         "transparent-white-20": "#FFFFFF"
       },
+      backgroundImage: {
+        คณะกรรมการการเลือกตั้ง:
+          "url('/design_assets/05_profile_pic/top/คณะกรรมการการเลือกตั้ง.jpg')",
+        คณะกรรมการตรวจเงินแผ่นดิน:
+          "url('/design_assets/05_profile_pic/top/คณะกรรมการตรวจเงินแผ่นดิน.jpg')",
+        คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ:
+          "url('/design_assets/05_profile_pic/top/คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ.jpg')",
+        "เฉลิมพล-ศรีสวัสดิ์-1":
+          "url('/design_assets/05_profile_pic/top/เฉลิมพล-ศรีสวัสดิ์-1.jpg')",
+        "เฉลิมพล-ศรีสวัสดิ์":
+          "url('/design_assets/05_profile_pic/top/เฉลิมพล-ศรีสวัสดิ์.jpg')",
+        "ดำรงศักดิ์-กิตติประภัสร์":
+          "url('/design_assets/05_profile_pic/top/ดำรงศักดิ์-กิตติประภัสร์.jpg')",
+        "ทักษิณ-ชินวัตร":
+          "url('/design_assets/05_profile_pic/top/ทักษิณ-ชินวัตร.jpg')",
+        "เปรม-ติณสูลานนท์":
+          "url('/design_assets/05_profile_pic/top/เปรม-ติณสูลานนท์.jpg')",
+        ผู้ตรวจการแผ่นดิน:
+          "url('/design_assets/05_profile_pic/top/ผู้ตรวจการแผ่นดิน.jpg')",
+        พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว:
+          "url('/design_assets/05_profile_pic/top/พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว.jpg')",
+        ศาลปกครอง: "url('/design_assets/05_profile_pic/top/ศาลปกครอง.jpg')",
+        ศาลยุติธรรม: "url('/design_assets/05_profile_pic/top/ศาลยุติธรรม.jpg')",
+        ศาลรัฐธรรมนูญ:
+          "url('/design_assets/05_profile_pic/top/ศาลรัฐธรรมนูญ.jpg')",
+        "สมเด็จพระกนิษฐาธิราชเจ้า กรมสมเด็จพระเทพรัตนราชสุดาฯ สยามบรมราชกุมารี":
+          "url('/design_assets/05_profile_pic/top/สมเด็จพระกนิษฐาธิราชเจ้า กรมสมเด็จพระเทพรัตนราชสุดาฯ สยามบรมราชกุมารี.jpg')",
+        "สมเด็จพระเจ้าน้องนางเธอ เจ้าฟ้าจุฬาภรณวลัยลักษณ์ อัครราชกุมารี กรมพระศรีสวางควัฒน วรข":
+          "url('/design_assets/05_profile_pic/top/สมเด็จพระเจ้าน้องนางเธอ เจ้าฟ้าจุฬาภรณวลัยลักษณ์ อัครราชกุมารี กรมพระศรีสวางควัฒน วรข.jpg')",
+        "สมเด็จพระนางเจ้าสิริกิติ์ พระบรมราชินีนาถ พระบรมราชชนนีพันปีหลวง":
+          "url('/design_assets/05_profile_pic/top/สมเด็จพระนางเจ้าสิริกิติ์ พระบรมราชินีนาถ พระบรมราชชนนีพันปีหลวง.jpg')",
+        "สุรยุทธ์-จุลานนท์":
+          "url('/design_assets/05_profile_pic/top/สุรยุทธ์-จุลานนท์.jpg')"
+      },
       boxShadow: {
         /* Effect styles */
         "small-shadow": "0px 2px 4px rgba(0, 0, 0, 0.08)",

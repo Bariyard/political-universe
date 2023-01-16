@@ -13,7 +13,7 @@
     family: termtem, sans-serif;
     padding: 0;
     margin: 0;
-    background-color: black;
+    background-color: white;
   }
   .truncate {
     overflow: hidden;
@@ -58,5 +58,153 @@
     height: 22px;
     background-color: white;
     cursor: pointer;
+  }
+
+  /* scrolling teller */
+  /* 
+  .container {
+    width: 890px;
+  }
+
+  #graphic {
+    padding-top: 60px;
+  }
+
+  #sections {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    top: 0px;
+    z-index: 90;
+    padding-bottom: 200px;
+  }
+
+  .step {
+    margin-bottom: 200px;
+    font-family: "TiemposTextWeb-Regular", "Georgia";
+    font-size: 16px;
+    line-height: 23px;
+    color: #767678;
+  }
+
+  #sections .title {
+    font-family: Arial, Helvetica, "san-serif";
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    color: #262626;
+    line-height: 1.2em;
+  }
+
+  #extra-space {
+    height: 300px;
+  }
+
+  #vis {
+    display: inline-block;
+    position: fixed;
+    top: 60px;
+    z-index: 1;
+    margin-left: 0;
+    height: 600px;
+    width: 600px;
+    background-color: #ddd;
+  }
+
+  #vis .title {
+    font-size: 120px;
+    text-anchor: middle;
+  }
+
+  #vis .sub-title {
+    font-size: 80px;
+    text-anchor: middle;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #666;
+    shape-rendering: crispEdges;
+  }
+
+  .highlight {
+    fill: #008080;
+    font-weight: bold;
+  }
+
+  .cough-arrow {
+    stroke: #000;
+    stroke-width: 4px;
+  } */
+
+  /* scrollama */
+  #scrolly {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    /* background-color: #f3f3f3; */
+    padding: 1rem;
+  }
+
+  /* #scrolly > * {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  } */
+
+  article {
+    position: relative;
+    /* padding: 0 1rem; */
+
+    width: 1rem;
+  }
+
+  figure {
+    position: -webkit-sticky;
+    position: sticky;
+    width: 100%;
+    margin: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    background-color: #8a8a8a;
+    z-index: 0;
+  }
+
+  figure p {
+    text-align: center;
+    padding: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .scrolly-step {
+    /* margin: 0 auto 2rem auto; */
+    /* background-color: #3b3b3b; */
+    color: #fff;
+  }
+
+  .scrolly-step:last-child {
+    margin-bottom: 0;
+  }
+
+  .scrolly-step.is-active {
+    background-color: goldenrod;
+    color: #3b3b3b;
+  }
+
+  .scrolly-step p {
+    text-align: center;
+    /* padding: 1rem; */
+    font-size: 1.5rem;
   }
 }

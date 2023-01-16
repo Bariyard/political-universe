@@ -17,13 +17,13 @@ const EventCard = ({ date_time, title, score }: EVENT_TYPE) => {
           {score > 0 ?
             <div className='bg-action-soft-positive py-[7.5px] px-[9.5px] rounded-[5px]
               flex flex-row gap-x-[6px] items-center'>
-              <POSITIVE_ICON_COLOR />
+              <div className="w-[20px] h-[20px]"><POSITIVE_ICON_COLOR /></div>
               <div className='wv-ibmplex wv-u2 wv-semibold'>ผลดี</div>
             </div>
             :
             <div className='bg-action-soft-negative py-[7.5px] px-[9.5px] rounded-[5px]
             flex flex-row gap-x-[6px] items-center'>
-              <NEGATIVE_ICON_COLOR />
+              <div className="w-[20px] h-[20px]"><NEGATIVE_ICON_COLOR /></div>
               <div className='wv-ibmplex wv-u2 wv-semibold'>ผลเสีย</div>
             </div>}
         </div>
