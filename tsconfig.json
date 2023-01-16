@@ -21,7 +21,8 @@
     "**/*.tsx",
     "public/scripts/index.tsx",
     "scripts/index.mjs",
-    "components/utils/stacked.jsx"
+    "components/utils/stacked.jsx",
+    "components/section1/Chart.tsx"
   ],
   "exclude": ["node_modules"]
 }
