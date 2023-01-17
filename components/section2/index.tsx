@@ -1,7 +1,6 @@
-import React from 'react'
 import * as d3 from 'd3'
+import React from 'react'
 import scrollama from 'scrollama'
-import WvContainer from '@wevisdemo/ui/react/container'
 import Box1 from './Box1'
 import Box3 from './Box3'
 import Box4 from './Box4'
@@ -97,6 +96,7 @@ const Section2 = (props: Props) => {
           offset: 0,
           debug: false,
           progress: true,
+
         })
         .onStepEnter(handleStepEnter)
         .onStepProgress(handleStepProgress);
@@ -105,7 +105,7 @@ const Section2 = (props: Props) => {
 
     // kick things off
     init();
-  }, [])
+  }, [currentStep])
 
 
   const getStepContent = () => {
