@@ -1,4 +1,5 @@
 import React from 'react'
+import AllPartiesSearch from './AllPartiesSearch'
 import IndividualTimeline from './IndividualTimeline'
 
 type Props = {}
@@ -6,7 +7,12 @@ type Props = {}
 const Section3 = (props: Props) => {
   return (
     <div>
-      <IndividualTimeline />
+      <div className='min-h-screen'>
+        <IndividualTimeline />
+      </div>
+      <div className='min-h-screen'>
+        <AllPartiesSearch />
+      </div>
     </div>
   )
 }

@@ -127,7 +127,7 @@ const IndividualDataTable = (props: Props) => {
         <div className='wv-ibmplex wv-b4'>{`- ${DATA.length} เหตุการณ์ -`}</div>
         <div className='flex flex-row  gap-x-[2px]'>
           <button className='border-black border-[1px] rounded-[2px] w-[24px] h-[24px]
-            inline-flex justify-center items-center disabled:opacity-50' disabled={currentPage === 0}
+            inline-flex justify-center items-center disabled:opacity-20' disabled={currentPage === 0}
             onClick={() => setCurrentPage((prev) => prev - 1)}>
             <svg width={9} height={12} viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.15991 1.41L3.57991 6L8.15991 10.59L6.74991 12L0.749912 6L6.74991 0L8.15991 1.41Z" fill="black" />
@@ -135,7 +135,7 @@ const IndividualDataTable = (props: Props) => {
           </button>
           {renderPagination()}
           <button className='border-black border-[1px] rounded-[2px] w-[24px] h-[24px]
-          inline-flex justify-center items-center disabled:opacity-50' disabled={currentPage === numPage - 1}
+          inline-flex justify-center items-center disabled:opacity-20' disabled={currentPage === numPage - 1}
             onClick={() => setCurrentPage((prev) => prev + 1)}>
             <svg width={9} height={12} viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0.840088 1.41L5.42009 6L0.840088 10.59L2.25009 12L8.25009 6L2.25009 0L0.840088 1.41Z" fill="black" />

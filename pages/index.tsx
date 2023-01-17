@@ -10,6 +10,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import Section1 from '../components/section1';
 import Section2 from '../components/section2/index';
 import Section3 from '../components/section3';
+import Outro from '../components/Outro';
 
 export default function Home() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function Home() {
       <Section1 />
       <Section2 />
       <Section3 />
-
+      <Outro />
       {/* <TestBTN /> */}
       {/* <TestStyle /> */}
       <WvFooter />

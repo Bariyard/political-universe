@@ -10,3 +10,9 @@ export type EVENT_TYPE = {
   year: number;
   month: number;
 }
+
+export type PERSON_TYPE = {
+  person: string;
+  total_event: number;
+  category: string;
+}

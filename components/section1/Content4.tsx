@@ -120,7 +120,7 @@ const Content4 = () => {
           <LANDING_SVG />
           <div className='border-dashed border-t-[1px] border-t-white w-full
             py-[10px] inline-flex justify-center items-center gap-x-[8px]'>
-            <span>เข้าใจภาพรวมของเหตุการณ์</span>
+            <span className='wv-ibmplex wv-semibold wv-u1'>เข้าใจภาพรวมของเหตุการณ์</span>
             <svg width={5} height={9} viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M-3.49691e-07 0.5L0 8.5L5 4.5L-3.49691e-07 0.5Z" fill="white" />
             </svg>
@@ -135,7 +135,7 @@ const Content4 = () => {
           <CategorySlide />
           <div className='border-dashed border-t-[1px] border-t-white w-full
         py-[10px] inline-flex justify-center items-center gap-x-[8px]'>
-            <span>เข้าใจภาพรวมของเหตุการณ์</span>
+            <span className='wv-ibmplex wv-semibold wv-u1'>เข้าใจภาพรวมของเหตุการณ์</span>
             <svg width={5} height={9} viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M-3.49691e-07 0.5L0 8.5L5 4.5L-3.49691e-07 0.5Z" fill="white" />
             </svg>
