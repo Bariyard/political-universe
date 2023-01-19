@@ -1,11 +1,14 @@
+// @ts-nocheck
 import * as d3 from 'd3'
 import React from 'react'
 import reactMarkdown from 'react-markdown'
 import scrollama from 'scrollama'
+import { NEGATIVE_ICON_COLOR, POSITIVE_ICON_COLOR } from '../utils'
 import Box1 from './Box1'
 import Box3 from './Box3'
 import Box4 from './Box4'
 import Box5 from './Box5'
+import StackedAreaChart from './viz/stacked'
 import { DrawViz } from './viz/test'
 type Props = {}
 
@@ -14,6 +17,24 @@ const Section2 = (props: Props) => {
   const [currentStep, setCurrentStep] = React.useState(0)
   const scroller = scrollama();
 
+  const svg = React.useRef<SVGSVGElement>(null);
+
+  const drawChart = React.useCallback(async (svg: React.RefObject<SVGSVGElement>) => {
+
+    const csv = await d3.csv(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-sum-all-positive-negative-event.csv`, d3.autoType)
+    await StackedAreaChart(svg, csv, {
+      x: d => d.year,
+      y: d => d.count,
+      z: d => d.type,
+      xType: d3.scaleLinear,
+      yLabel: "จำนวนเหตุการณ์",
+      // width: Number(d3.select('figure').style('width')),
+      height: 500,
+      // yDomain: [-200, 200],
+      // xFormat: d3.format("%"),
+      colors: ["#60C1AF", "#F92D46"]
+    })
+  }, [])
 
   const handleStepEnter = React.useCallback((response: any) => {
     var scrolly = d3.select("#scrolly");
@@ -93,66 +114,6 @@ const Section2 = (props: Props) => {
       scroller.resize();
     }, [scroller])
 
-  const drawViz = React.useCallback(() => {
-    var data = [
-      { month: new Date(2018, 1, 1), apples: 10, bananas: 20, oranges: 15 },
-      { month: new Date(2018, 2, 1), apples: 15, bananas: 15, oranges: 15 },
-      { month: new Date(2018, 3, 1), apples: 20, bananas: 25, oranges: 15 }
-    ];
-
-    const margin = { top: 50, right: 25, bottom: 45, left: 50 },
-      width = 700 - margin.left - margin.right,
-      height = 420 - margin.top - margin.bottom;
-
-    // default viz
-    const svg = d3.select('#viz')
-    // .append('svg')
-    // .attr("width", width + margin.left + margin.right)
-    // .attr("height", height + margin.top + margin.bottom)
-    // // .append("g")
-    // // .attr("transform", `translate(${margin.left},${margin.top})`)
-    // .append('rect')
-    // .attr('fill', '#FF0000')
-    // .attr('width', '100%')
-    // .attr('height', '100%');
-
-
-    // viz
-    var stackGen = d3.stack()
-      .keys(["apples", "bananas", "oranges"]);
-    var stackedSeries = stackGen(data);
-
-    var xScale = d3.scaleTime()
-      .domain([data[0].month, data[2].month])
-      .range([50, 275]);
-
-    var yScale = d3.scaleLinear()
-      .domain([0, 60])
-      .range([275, 25]);
-
-    var colorScale = d3.scaleOrdinal()
-      .domain(["apples", "bananas", "oranges"])
-      .range(["red", "yellow", "orange"]);
-
-    var areaGen = d3.area()
-      .x((d) => xScale(d.data.month))
-      .y0((d) => yScale(d[0]))
-      .y1((d) => yScale(d[1]));
-
-    d3.select("#viz")
-      .append('svg')
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left},${margin.top})`)
-
-      .selectAll(".areas")
-      .data(stackedSeries)
-      .join("path")
-      .attr("d", areaGen)
-      .attr("fill", (d) => colorScale(d.key));
-  }, [])
-
   const init = React.useCallback(() => {
     // setupStickyfill();
 
@@ -183,9 +144,7 @@ const Section2 = (props: Props) => {
 
   React.useEffect(() => {
     if (isInit) return
-
     init()
-
     // kick things off
     window.addEventListener("resize", handleResize);
     return () => {
@@ -193,6 +152,10 @@ const Section2 = (props: Props) => {
     }
   }, [isInit, init, handleResize])
 
+  React.useEffect(() => {
+    if (svg)
+      drawChart(svg);
+  }, [svg, drawChart]);
 
 
   const getStepContent = () => {
@@ -209,20 +172,20 @@ const Section2 = (props: Props) => {
 
 
   return (
-    <div className='max-w-[1100px] mx-auto'>
+    <div className='max-w-[1100px] mx-auto mt-[50vh]'>
       <div id='scorlly-container' className='p-4 min-h-screen'>
         <section id="scrolly">
-          <figure>
-            <p>0</p>
-            <div id='viz' />
+          <figure className='flex flex-col'>
+            <div id="chart" className='my-auto'>
+              <svg ref={svg} />
+            </div>
           </figure>
-          <div className=''>
-            <div className='sticky top-2 bg-transparent min-w-[360px] transition-all'>
-
+          <div className='max-w-[360px]'>
+            <div className='sticky top-1/2 bg-transparent min-w-[360px] transition-all -translate-y-1/2'>
               {getStepContent()}
             </div>
           </div>
-          <article className=' w-1'>
+          <article className='w-[1px]'>
             <div className="scrolly-step" data-step={1} />
             <div className="scrolly-step" data-step={2} />
             <div className="scrolly-step" data-step={3} />
@@ -231,7 +194,7 @@ const Section2 = (props: Props) => {
           </article>
         </section>
       </div>
-    </div>
+    </div >
 
   )
 }

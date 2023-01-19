@@ -13,7 +13,7 @@ export default function StackedAreaChart(
     marginTop = 20, // top margin, in pixels
     marginRight = 70, // right margin, in pixels
     marginBottom = 30, // bottom margin, in pixels
-    marginLeft = 100, // left margin, in pixels
+    marginLeft = 110, // left margin, in pixels
     yLabelTop = 10,
     width = parseInt(d3.select("#chart").style("width"), 10), // outer width, in pixels
     height = 400, // outer height, in pixels
@@ -185,6 +185,16 @@ export default function StackedAreaChart(
     .attr("x2", xScale(56))
     .attr("y2", height - marginBottom);
 
+  svg
+    .append('line')
+    .style("stroke", "white")
+    .style("stroke-width", '1px')
+    .attr('class', 'dashed')
+    .attr("x1", 0)
+    .attr("y1", height * 0.5 - (marginBottom + 1))
+    .attr("x2", xScale(54))
+    .attr("y2", height * 0.5 - (marginBottom + 1));
+
   // Decoration icon
   svg.append("svg:image")
     .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_01_label.svg`)
@@ -210,6 +220,13 @@ export default function StackedAreaChart(
     .attr("height", 24)
     .attr("x", xScale(56.5))
     .attr("y", marginTop);
+
+  svg.append("svg:image")
+    .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/legend.svg`)
+    .attr("width", 56)
+    .attr("height", 176)
+    .attr("x", 29)
+    .attr("y", (height * 0.5 - (marginBottom + 1)) - 176 * .5);
 
   return Object.assign(svg.node(), { scales: { color } });
 }

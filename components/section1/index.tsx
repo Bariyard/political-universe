@@ -16,7 +16,7 @@ const Section1 = (props: Props) => {
       <Content2 />
       <Content3 />
       <Content4 />
-      <Chart />
+      {/* <Chart /> */}
     </div >
   )
 }

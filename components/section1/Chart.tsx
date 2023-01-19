@@ -33,30 +33,9 @@ const Chart = (props: Props) => {
   return (
     <div className='flex flex-row'>
       <div className='w-2/3 relative'>
-        <div className='absolute inset-y-auto w-[100px] h-full'>
-          <div className='flex flex-col justify-center h-full pt-[20px] pb-[80px] text-center
-            divide-y-[1px] divide-dashed divide-y-white'>
-            <div className='flex flex-col items-center pb-[9px]'>
-              <div className='w-[16px] h-[16px]'><POSITIVE_ICON_COLOR /></div>
-              <span className='wv-ibmplex wv-bold wv-b7'>
-                เหตุการณ์<br />
-                เป็นผลดี<br />
-                กับรัฐบาล
-              </span>
-            </div>
-            <div className='flex flex-col items-center pt-[9px]'>
-              <div className='w-[16px] h-[16px]'><NEGATIVE_ICON_COLOR /></div>
-              <span className='wv-ibmplex wv-bold wv-b7'>
-                เหตุการณ์<br />
-                เป็นผลลบ<br />
-                กับรัฐบาล
-              </span>
-            </div>
-          </div>
-        </div>
         <div id="chart">
+          <svg ref={svg} />
         </div>
-        <svg ref={svg} />
       </div>
       <div className='bg-red-600 w-1/3 h-[50px] '>
         xx
