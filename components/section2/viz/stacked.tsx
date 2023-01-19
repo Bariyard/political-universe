@@ -86,7 +86,7 @@ export default function StackedAreaChart(
     .x(({ i }) => xScale(X[i]))
     .y0(([y1]) => yScale(y1))
     .y1(([, y2]) => yScale(y2))
-    .curve(d3.curveCardinal);
+    .curve(d3.curveBasis);
 
   // const svg = d3
   //   .create("svg")
@@ -171,7 +171,7 @@ export default function StackedAreaChart(
     .style("stroke-width", '1px')
     .attr('class', 'dashed')
     .attr("x1", xScale(54))
-    .attr("y1", marginTop)
+    .attr("y1", 60)
     .attr("x2", xScale(54))
     .attr("y2", height - marginBottom);
 
@@ -181,9 +181,35 @@ export default function StackedAreaChart(
     .style("stroke-width", '1px')
     .attr('class', 'dashed')
     .attr("x1", xScale(56))
-    .attr("y1", marginTop)
+    .attr("y1", 60)
     .attr("x2", xScale(56))
     .attr("y2", height - marginBottom);
+
+  // Decoration icon
+  svg.append("svg:image")
+    .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_01_label.svg`)
+    .attr("width", 49)
+    .attr("height", 94)
+    .attr("x", xScale(54) - 24.5)
+    .attr("y", 0);
+  svg.append("svg:image")
+    .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_02_label.svg`)
+    .attr("width", 49)
+    .attr("height", 94)
+    .attr("x", xScale(56) - 25.5)
+    .attr("y", 0);
+  svg.append("svg:image")
+    .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_01-range.svg`)
+    .attr("width", 73)
+    .attr("height", 48)
+    .attr("x", xScale(55) - 73 * .5)
+    .attr("y", marginTop * .5);
+  svg.append("svg:image")
+    .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_02-range.svg`)
+    .attr("width", xScale(65) - xScale(56))
+    .attr("height", 24)
+    .attr("x", xScale(56.5))
+    .attr("y", marginTop);
 
   return Object.assign(svg.node(), { scales: { color } });
 }

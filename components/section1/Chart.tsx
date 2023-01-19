@@ -9,20 +9,8 @@ const Chart = (props: Props) => {
   const svg = React.useRef<SVGSVGElement>(null);
 
   const drawChart = React.useCallback(async (svg: React.RefObject<SVGSVGElement>) => {
-    // const csv = await d3.csv("http://localhost:3000/data/example/unemployment.csv", d3.autoType)
-    // console.log(csv)
-    // await StackedAreaChart(svg, csv, {
-    //   x: d => d.date,
-    //   y: d => d.unemployed,
-    //   z: d => d.industry,
-    //   yLabel: "↑ Unemployed persons",
-    //   width: 500,
-    //   height: 500
-    // })
 
     const csv = await d3.csv(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-sum-all-positive-negative-event.csv`, d3.autoType)
-
-    // console.log(csv)
     await StackedAreaChart(svg, csv, {
       x: d => d.year,
       y: d => d.count,
@@ -35,12 +23,11 @@ const Chart = (props: Props) => {
       // xFormat: d3.format("%"),
       colors: ["#60C1AF", "#F92D46"]
     })
-  }
-    , [])
+  }, [])
 
   React.useEffect(() => {
-    drawChart(svg);
-
+    if (svg)
+      drawChart(svg);
   }, [svg, drawChart]);
 
   return (
