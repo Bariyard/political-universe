@@ -2,6 +2,7 @@
 import React from 'react'
 import * as d3 from "d3";
 import StackedAreaChart from '../section2/viz/stacked'
+import { NEGATIVE_ICON_COLOR, POSITIVE_ICON_COLOR } from '../utils';
 type Props = {}
 
 const Chart = (props: Props) => {
@@ -27,7 +28,7 @@ const Chart = (props: Props) => {
       y: d => d.count,
       z: d => d.type,
       xType: d3.scaleLinear,
-      yLabel: "↑ Unemployed persons",
+      yLabel: "จำนวนเหตุการณ์",
       // width: Number(d3.select('#chart').style('width')),
       height: 500,
       // yDomain: [-200, 200],
@@ -44,13 +45,36 @@ const Chart = (props: Props) => {
 
   return (
     <div className='flex flex-row'>
-      <div id="chart" className='w-2/3'>
+      <div className='w-2/3 relative'>
+        <div className='absolute inset-y-auto w-[100px] h-full'>
+          <div className='flex flex-col justify-center h-full pt-[20px] pb-[80px] text-center
+            divide-y-[1px] divide-dashed divide-y-white'>
+            <div className='flex flex-col items-center pb-[9px]'>
+              <div className='w-[16px] h-[16px]'><POSITIVE_ICON_COLOR /></div>
+              <span className='wv-ibmplex wv-bold wv-b7'>
+                เหตุการณ์<br />
+                เป็นผลดี<br />
+                กับรัฐบาล
+              </span>
+            </div>
+            <div className='flex flex-col items-center pt-[9px]'>
+              <div className='w-[16px] h-[16px]'><NEGATIVE_ICON_COLOR /></div>
+              <span className='wv-ibmplex wv-bold wv-b7'>
+                เหตุการณ์<br />
+                เป็นผลลบ<br />
+                กับรัฐบาล
+              </span>
+            </div>
+          </div>
+        </div>
+        <div id="chart">
+        </div>
         <svg ref={svg} />
       </div>
       <div className='bg-red-600 w-1/3 h-[50px] '>
         xx
       </div>
-    </div>
+    </div >
   );
 }
 

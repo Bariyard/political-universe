@@ -11,9 +11,9 @@ export default function StackedAreaChart(
     y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
     z = () => 1, // given d in data, returns the (categorical) z-value
     marginTop = 20, // top margin, in pixels
-    marginRight = 50, // right margin, in pixels
+    marginRight = 70, // right margin, in pixels
     marginBottom = 30, // bottom margin, in pixels
-    marginLeft = 40, // left margin, in pixels
+    marginLeft = 100, // left margin, in pixels
     yLabelTop = 10,
     width = parseInt(d3.select("#chart").style("width"), 10), // outer width, in pixels
     height = 400, // outer height, in pixels
@@ -99,13 +99,14 @@ export default function StackedAreaChart(
 
   svg
     .append("g")
-    .attr("transform", `translate(${width - marginRight},0)`)
+    .attr("transform", `translate(${width - marginRight * 0.75},0)`)
     .call(yAxis)
     .call((g) =>
       g
         .append("text")
-        .attr("x", width * 0.35)
-        .attr("y", -marginRight * 0.6)
+        .attr('class', 'wv-bold wv-ibmplex wv-b7')
+        .attr("x", height * 0.35)
+        .attr("y", -marginRight * .5)
         .attr("fill", "currentColor")
         .attr("text-anchor", "start")
         .attr("transform", "rotate(90)")
@@ -134,11 +135,11 @@ export default function StackedAreaChart(
 
   svg
     .append("g")
-    .attr("class", "xAxis")
+    .attr("class", "xAxis dashed")
 
     .attr(
       "transform",
-      `translate(0,${(height) * 0.5 - marginBottom})`
+      `translate(0,${height * 0.5 - (marginBottom + 1)})`
     )
     .call(xAxis)
     .call((g) =>
@@ -162,6 +163,27 @@ export default function StackedAreaChart(
         .attr("fill", d3.color("black"))
         .attr("y", "4")
     );
+
+  // Decoration for chart
+  svg
+    .append('line')
+    .style("stroke", "white")
+    .style("stroke-width", '1px')
+    .attr('class', 'dashed')
+    .attr("x1", xScale(54))
+    .attr("y1", marginTop)
+    .attr("x2", xScale(54))
+    .attr("y2", height - marginBottom);
+
+  svg
+    .append('line')
+    .style("stroke", "white")
+    .style("stroke-width", '1px')
+    .attr('class', 'dashed')
+    .attr("x1", xScale(56))
+    .attr("y1", marginTop)
+    .attr("x2", xScale(56))
+    .attr("y2", height - marginBottom);
 
   return Object.assign(svg.node(), { scales: { color } });
 }

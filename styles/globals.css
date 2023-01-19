@@ -207,4 +207,9 @@
     /* padding: 1rem; */
     font-size: 1.5rem;
   }
+
+  /* chart */
+  .dashed {
+    stroke-dasharray: 3, 2;
+  }
 }
