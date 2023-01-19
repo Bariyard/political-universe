@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react'
 import * as d3 from "d3";
-import StackedAreaChart from '../utils/stacked'
+import StackedAreaChart from '../section2/viz/stacked'
 type Props = {}
 
 const Chart = (props: Props) => {
@@ -19,17 +19,19 @@ const Chart = (props: Props) => {
     //   height: 500
     // })
 
-    const csv = await d3.csv("http://localhost:3000/data/example/test.csv", d3.autoType)
-    console.log(csv)
+    const csv = await d3.csv(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-sum-all-positive-negative-event.csv`, d3.autoType)
+
+    // console.log(csv)
     await StackedAreaChart(svg, csv, {
-      x: d => d.date_time,
-      y: d => d.total,
+      x: d => d.year,
+      y: d => d.count,
       z: d => d.type,
+      xType: d3.scaleLinear,
       yLabel: "↑ Unemployed persons",
       // width: Number(d3.select('#chart').style('width')),
       height: 500,
-      yDomain: [-40, 40],
-      xFormat: d3.timeFormat("%y"),
+      // yDomain: [-200, 200],
+      // xFormat: d3.format("%"),
       colors: ["#60C1AF", "#F92D46"]
     })
   }

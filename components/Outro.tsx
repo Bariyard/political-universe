@@ -1,6 +1,4 @@
-import WvContainer from '@wevisdemo/ui/react/container'
 import WvSharer from '@wevisdemo/ui/react/sharer'
-import React from 'react'
 
 type Props = {}
 

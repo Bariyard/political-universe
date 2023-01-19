@@ -1,0 +1,6 @@
+year,month,count,type,short_year
+2564,4,1.0,positive,64
+2564,5,1.0,positive,64
+2564,2,-1.0,negative,64
+2565,1,-1.0,negative,65
+2565,4,-1.0,negative,65

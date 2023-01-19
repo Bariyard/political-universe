@@ -1,0 +1,167 @@
+// @ts-nocheck
+import * as d3 from "d3";
+// Copyright 2021 Observable, Inc.
+// Released under the ISC license.
+// https://observablehq.com/@d3/stacked-area-chart
+export default function StackedAreaChart(
+  svgRef,
+  data,
+  {
+    x = ([x]) => x, // given d in data, returns the (ordinal) x-value
+    y = ([, y]) => y, // given d in data, returns the (quantitative) y-value
+    z = () => 1, // given d in data, returns the (categorical) z-value
+    marginTop = 20, // top margin, in pixels
+    marginRight = 50, // right margin, in pixels
+    marginBottom = 30, // bottom margin, in pixels
+    marginLeft = 40, // left margin, in pixels
+    yLabelTop = 10,
+    width = parseInt(d3.select("#chart").style("width"), 10), // outer width, in pixels
+    height = 400, // outer height, in pixels
+    xType = d3.scaleUtc,
+    xDomain, // [xmin, xmax]
+    xRange = [marginLeft, width - marginRight], // [left, right]
+    yType = d3.scaleLinear, // type of y-scale
+    yDomain, // [ymin, ymax]
+    yRange = [height - marginBottom, marginTop], // [bottom, top]
+    zDomain, // array of z-values
+    offset = d3.stackOffsetDiverging, // stack offset method
+    order = d3.stackOrderNone, // stack order method
+    xFormat, // a format specifier string for the x-axis
+    yFormat, // a format specifier for the y-axis
+    yLabel, // a label for the y-axis
+    colors = d3.schemeTableau10 // array of colors for z
+  } = {}
+) {
+  // Compute values.
+  const X = d3.map(data, x);
+  const Y = d3.map(data, y);
+  const Z = d3.map(data, z);
+  console.log(data)
+
+  // Compute default x- and z-domains, and unique the z-domain.
+  if (xDomain === undefined) xDomain = d3.extent(X);
+  if (yDomain === undefined) yDomain = d3.extent(Y);
+  if (zDomain === undefined) zDomain = Z;
+  console.log(yDomain);
+
+
+  zDomain = new d3.InternSet(zDomain);
+
+  // Omit any data not present in the z-domain.
+  const I = d3.range(X.length).filter((i) => zDomain.has(Z[i]));
+
+  // Compute a nested array of series where each series is [[y1, y2], [y1, y2],
+  // [y1, y2], …] representing the y-extent of each stacked rect. In addition,
+  // each tuple has an i (index) property so that we can refer back to the
+  // original data point (data[i]). This code assumes that there is only one
+  // data point for a given unique x- and z-value.
+  const series = d3
+    .stack()
+    .keys(zDomain)
+    .value(([x, I], z) => Y[I.get(z)])
+    .order(order)
+    .offset(offset)(
+      d3.rollup(
+        I,
+        ([i]) => i,
+        (i) => X[i],
+        (i) => Z[i]
+      )
+    )
+    .map((s) => s.map((d) => Object.assign(d, { i: d.data[1].get(s.key) })));
+
+  // Compute the default y-domain. Note: diverging stacks can be negative.
+  if (yDomain === undefined) yDomain = d3.extent(series.flat(2));
+
+  // Construct scales and axes.
+  const xScale = xType(xDomain, xRange);
+  const yScale = yType(yDomain, yRange);
+  const color = d3.scaleOrdinal(zDomain, colors);
+  const xAxis = d3.axisBottom(xScale).ticks(10, xFormat).tickSizeOuter(0);
+
+  const yAxis = d3.axisRight(yScale).ticks(height / 50, yFormat);
+
+  const area = d3
+    .area()
+    .x(({ i }) => xScale(X[i]))
+    .y0(([y1]) => yScale(y1))
+    .y1(([, y2]) => yScale(y2))
+    .curve(d3.curveCardinal);
+
+  // const svg = d3
+  //   .create("svg")
+  const svg = d3.select(svgRef.current);
+  svg
+    .attr("width", width)
+    .attr("height", height)
+    .attr("viewBox", [0, 0, width, height])
+    .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+  svg
+    .append("g")
+    .attr("transform", `translate(${width - marginRight},0)`)
+    .call(yAxis)
+    .call((g) =>
+      g
+        .append("text")
+        .attr("x", width * 0.35)
+        .attr("y", -marginRight * 0.6)
+        .attr("fill", "currentColor")
+        .attr("text-anchor", "start")
+        .attr("transform", "rotate(90)")
+        .text(yLabel)
+        .call((g) => g.select(".domain").remove())
+
+        .append("g")
+        .call((g) =>
+          g
+            .selectAll(".tick line")
+            .clone()
+            .attr("x2", width - marginLeft - marginRight)
+            .attr("stroke-opacity", 0.1)
+        )
+    );
+
+  svg
+    .append("g")
+    .selectAll("path")
+    .data(series)
+    .join("path")
+    .attr("fill", ([{ i }]) => color(Z[i]))
+    .attr("d", area)
+    .append("title")
+    .text(([{ i }]) => Z[i]);
+
+  svg
+    .append("g")
+    .attr("class", "xAxis")
+
+    .attr(
+      "transform",
+      `translate(0,${(height) * 0.5 - marginBottom})`
+    )
+    .call(xAxis)
+    .call((g) =>
+      g
+        // svg
+        .selectAll(".tick")
+        .insert("rect", "text")
+        .attr("transform", `translate(-9,0)`)
+        .attr("rx", "2")
+        .attr("ry", "2")
+        .attr("width", `${18}`)
+        .attr("height", `${15}`)
+        .attr("fill", d3.color("white"))
+    )
+    .call((g) =>
+      g
+        .selectAll(".tick text")
+        .attr("font-family", "IBM Plex Sans Thai")
+        .attr("font-size", "10px")
+        .attr("font-weight", 700)
+        .attr("fill", d3.color("black"))
+        .attr("y", "4")
+    );
+
+  return Object.assign(svg.node(), { scales: { color } });
+}
