@@ -8,7 +8,7 @@ import Box1 from './Box1'
 import Box3 from './Box3'
 import Box4 from './Box4'
 import Box5 from './Box5'
-import StackedAreaChart from './viz/stacked'
+import StackedAreaChart, { drawDefaultChart, drawStep1Chart } from './viz/stacked'
 import { DrawViz } from './viz/test'
 type Props = {}
 
@@ -17,24 +17,30 @@ const Section2 = (props: Props) => {
   const [currentStep, setCurrentStep] = React.useState(0)
   const scroller = scrollama();
 
-  const svg = React.useRef<SVGSVGElement>(null);
+  const svg = React.useRef<SVGElement>(null);
+  const [data, setData] = React.useState()
+  const stateRef = React.useRef();
+  stateRef.current = data
 
-  const drawChart = React.useCallback(async (svg: React.RefObject<SVGSVGElement>) => {
+  const drawChart = React.useCallback(async (svg: React.RefObject<SVGElement>) => {
 
     const csv = await d3.csv(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-sum-all-positive-negative-event.csv`, d3.autoType)
-    await StackedAreaChart(svg, csv, {
+    await setData(csv)
+    StackedAreaChart(svg, csv, {
       x: d => d.year,
       y: d => d.count,
       z: d => d.type,
-      xType: d3.scaleLinear,
+      // xType: d3.scaleLinear,
       yLabel: "จำนวนเหตุการณ์",
       // width: Number(d3.select('figure').style('width')),
+      width: parseInt(d3.select("#chart").style("width"), 10),
       height: 500,
       // yDomain: [-200, 200],
-      // xFormat: d3.format("%"),
+      xFormat: d3.timeFormat("%y"),
       colors: ["#60C1AF", "#F92D46"]
     })
-  }, [])
+
+  }, [setData])
 
   const handleStepEnter = React.useCallback((response: any) => {
     var scrolly = d3.select("#scrolly");
@@ -42,17 +48,44 @@ const Section2 = (props: Props) => {
     var article = scrolly.select("article");
     var step = article.selectAll(".scrolly-step");
     // add color to current step only
-    step.classed("is-active", function (d, i) {
-      return i === response.index;
-    });
 
     // update graphic based on step
     figure.select("p").text(response.index + 1);
+    setCurrentStep((prev) =>
+      prev !== response.index ? response.index : prev)
 
-    // switch (response.index) {
-    //   case 0:
-    //     d3.select('#description-content')
-    //     break;
+    // console.log(response)
+    // console.log(chart)
+    // if (!chart) return;
+    switch (response.index) {
+      case 0:
+        if (response.direction === 'down') {
+          console.log('hit')
+          console.log(stateRef.current)
+          drawDefaultChart(
+            stateRef.current, {
+            x: d => d.year,
+            y: d => d.count,
+            z: d => d.type,
+            // xType: d3.scaleLinear,
+            yLabel: "จำนวนเหตุการณ์",
+            // width: Number(d3.select('figure').style('width')),
+            width: parseInt(d3.select("#chart").style("width"), 10),
+            height: 500,
+            // yDomain: [-200, 200],
+            // xFormat: d3.format("%"),
+            colors: ["#60C1AF", "#F92D46"]
+          }
+          )
+
+        }
+        break;
+      case 1:
+        if (response.direction === 'up') {
+          drawStep1Chart()
+        }
+        break;
+    }
     //   case 1:
     //     d3.select('#main-viz-1').style("opacity", 1)
     //     break;
@@ -67,9 +100,11 @@ const Section2 = (props: Props) => {
     //     break;
     // }
 
-    setCurrentStep((prev) =>
-      prev !== response.index ? response.index : prev)
-  }, [])
+    step.classed("is-active", function (d, i) {
+      return i === response.index;
+    });
+
+  }, [data])
 
   const handleStepProgress = React.useCallback((response: any) => {
     // var opacityScale = d3.scaleLinear()

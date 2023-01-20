@@ -125,15 +125,15 @@ export default function StackedAreaChart(
         )
     );
 
-  rootLayer
-    // .append("g")
-    .selectAll("path")
-    .data(series)
-    .join("path")
-    .attr("fill", ([{ i }]) => color(Z[i]))
-    .attr("d", area)
-    .append("title")
-    .text(([{ i }]) => Z[i]);
+  // svg
+  //   .append("g")
+  //   .selectAll("path")
+  //   .data(series)
+  //   .join("path")
+  //   .attr("fill", ([{ i }]) => color(Z[i]))
+  //   .attr("d", area)
+  //   .append("title")
+  //   .text(([{ i }]) => Z[i]);
 
   let layer2 = svg
     .append("g")
@@ -234,6 +234,7 @@ export default function StackedAreaChart(
 
 }
 export function drawDefaultChart(
+  svgRef,
   data,
   {
     x = ([x]) => x, // given d in data, returns the (ordinal) x-value
@@ -261,12 +262,12 @@ export function drawDefaultChart(
     colors = d3.schemeTableau10 // array of colors for z
   } = {}
 ) {
-  console.log(data)
+
   // Compute values.
   const X = d3.map(data, x);
   const Y = d3.map(data, y);
   const Z = d3.map(data, z);
-
+  console.log(data)
 
   // Compute default x- and z-domains, and unique the z-domain.
   if (xDomain === undefined) xDomain = d3.extent(X);
@@ -285,14 +286,6 @@ export function drawDefaultChart(
   // each tuple has an i (index) property so that we can refer back to the
   // original data point (data[i]). This code assumes that there is only one
   // data point for a given unique x- and z-value.
-  // Construct scales and axes.
-  const xScale = xType(xDomain, xRange);
-  const yScale = yType(yDomain, yRange);
-  const color = d3.scaleOrdinal(zDomain, colors);
-  const xAxis = d3.axisBottom(xScale).ticks(10, xFormat).tickSizeOuter(0);
-
-  const yAxis = d3.axisRight(yScale).ticks(height / 50, yFormat);
-
   const series = d3
     .stack()
     .keys(zDomain)
@@ -311,44 +304,34 @@ export function drawDefaultChart(
   const customColor = d3.scaleOrdinal(zDomain, ['#ffffff29', '#FFFFFF29']);
   console.log('drawDefaultChart');
 
-  const area = d3
-    .area()
-    .x(({ i }) => xScale(X[i]))
-    .y0(([y1]) => yScale(y1))
-    .y1(([, y2]) => yScale(y2))
-    .curve(d3.curveBasis);
-
-
-
   const svg = d3.select('#root-layer')
+    .append("g")
     .selectAll("path")
-    // .data(series)
-    // .join("path")
-    // .attr("fill", ([{ i }]) => customColor(Z[i]))
-    // .attr("d", area)
-    // .append("title")
-    // .text(([{ i }]) => Z[i])
-    .transition()
-    .duration(2500)
+    .data(series)
+    .join("path")
+    .attr('class', 'z-50')
     .attr("fill", ([{ i }]) => customColor(Z[i]))
-
-  console.log(svg)
-
-}
-
-export const drawStep1Chart = () => {
-  // const customColor = d3.scaleOrdinal(zDomain, ['#FFFFFF80', '#FFFFFF80']);
-  // console.log('drawStep1Chart');
-  // rootLayer
-  //   .append("g")
-  //   .selectAll("path")
-  //   .data(series)
-  //   .join("path")
-  //   .attr('class', 'z-50')
-  //   .attr("fill", ([{ i }]) => customColor(Z[i]))
-  //   .attr("d", area)
-  //   .append("title")
-  //   .text(([{ i }]) => Z[i]);
+    .attr("d", area)
+    .append("title")
+    .text(([{ i }]) => Z[i]);
 
 }
 
+const drawStep1Chart = () => {
+  const customColor = d3.scaleOrdinal(zDomain, ['#FFFFFF80', '#FFFFFF80']);
+  console.log('drawStep1Chart');
+  rootLayer
+    .append("g")
+    .selectAll("path")
+    .data(series)
+    .join("path")
+    .attr('class', 'z-50')
+    .attr("fill", ([{ i }]) => customColor(Z[i]))
+    .attr("d", area)
+    .append("title")
+    .text(([{ i }]) => Z[i]);
+
+}
+
+return { drawDefaultChart, drawStep1Chart }
+}
