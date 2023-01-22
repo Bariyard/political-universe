@@ -212,4 +212,10 @@
   .dashed {
     stroke-dasharray: 3, 2;
   }
+
+  /* apexchart */
+  .apexcharts-xaxis-label {
+    fill: black;
+    border-radius: 4px;
+  }
 }
