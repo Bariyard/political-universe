@@ -7,7 +7,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import * as d3 from 'd3'
 import { displayPartsToString } from 'typescript';
 
-type VIZ2_RAW = {
+export type VIZ2_RAW = {
   id: number,
   groups: string,
   sub_categories: string,
@@ -16,7 +16,7 @@ type VIZ2_RAW = {
   keyword: string | string[],
   count: number
 }
-type VIZ2_TYPE = {
+export type VIZ2_TYPE = {
   [index: string]: {
     id: number,
     groups: string,

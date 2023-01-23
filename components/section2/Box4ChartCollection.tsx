@@ -1,40 +1,23 @@
-import dynamic from 'next/dynamic'
-import Box1 from './Box1'
-import Box3 from './Box3'
-import Box4 from './Box4'
-import Box4ChartCollection from './Box4ChartCollection'
-import Box5 from './Box5'
-import * as d3 from 'd3'
 import React from 'react'
-import { VIZ4_TYPE } from './Box4ChartCollection'
+import * as d3 from 'd3'
+import dynamic from 'next/dynamic'
+import AreaBox4ChartNew from './AreaBox4ChartNew'
 import { CATEGORY_INFO } from '../utils'
-
-const DynamicStackedAreaChart = dynamic(
-  () => import('./StackedAreaChartNew'),
+const DynamicBox4AreaChart = dynamic(
+  () => import('./AreaBox4ChartNew'),
   { ssr: false }
 )
-
-const DynamicBox5ChartNew = dynamic(
-  () => import('./Box5ChartNew'),
-  { ssr: false }
-)
-
 
 type Props = {}
 
-
-
-const Section2 = (props: Props) => {
-
-  const [series, setSeries] = React.useState<ApexAxisChartSeries>([])
+export type VIZ4_TYPE = { year: number, positive: number, negative: number }
+const Box4ChartCollection = (props: Props) => {
   const [series1, setSeries1] = React.useState<ApexAxisChartSeries>([])
   const [series2, setSeries2] = React.useState<ApexAxisChartSeries>([])
   const [series3, setSeries3] = React.useState<ApexAxisChartSeries>([])
   const [series4, setSeries4] = React.useState<ApexAxisChartSeries>([])
 
   const loadDataSet = React.useCallback(async () => {
-
-    const csv = await d3.csv<VIZ4_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-[format2]sum-all-positive-negative-event.csv`, d3.autoType)
     const csv1 = await d3.csv<VIZ4_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz5[วัง & องคมนตรี]-sum-all-positive-negative-event-format-2.csv`, d3.autoType)
 
     const processData = (csv: d3.DSVParsedArray<VIZ4_TYPE>): ApexAxisChartSeries => {
@@ -66,6 +49,7 @@ const Section2 = (props: Props) => {
 
       positiveData = positiveData.sort((a, b) => a.x - b.x)
       negativeData = negativeData.sort((a, b) => a.x - b.x)
+      // console.log(positiveData);
       return [{
         name: "positive",
         data: positiveData
@@ -76,8 +60,6 @@ const Section2 = (props: Props) => {
       }]
     }
 
-
-    setSeries(processData(csv))
     setSeries1(processData(csv1))
     const csv2 = await d3.csv<VIZ4_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz5[ตำรวจ & ทหาร]-sum-all-positive-negative-event-format-2.csv`, d3.autoType)
     setSeries2(processData(csv2))
@@ -85,7 +67,6 @@ const Section2 = (props: Props) => {
     setSeries3(processData(csv3))
     const csv4 = await d3.csv<VIZ4_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz5[พรรคการเมือง & กลุ่มการเมือง]-sum-all-positive-negative-event-format-2.csv`, d3.autoType)
     setSeries4(processData(csv4))
-    setCsvData(processData(csv))
 
   }, [])
 
@@ -94,56 +75,46 @@ const Section2 = (props: Props) => {
   }, [loadDataSet])
 
 
-  const [selectFilter, setSelectFilter] = React.useState('ทั้งหมด')
-  const [csvData, setCsvData] = React.useState<ApexAxisChartSeries>([])
-  React.useEffect(() => {
-    switch (selectFilter) {
-      case 'ทั้งหมด': setCsvData(series); break;
-      case CATEGORY_INFO[0].title: setCsvData(series1); break;
-      case CATEGORY_INFO[1].title: setCsvData(series2); break;
-      case CATEGORY_INFO[2].title: setCsvData(series3); break;
-      case CATEGORY_INFO[3].title: setCsvData(series4); break;
-
-    }
-  }, [selectFilter, series, series1, series2, series3, series4])
-
-
   return (
-    <div className='max-w-[1100px] mx-auto'>
-      <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicStackedAreaChart step={0} /></div>
-        <div className='w-[360px] h-fit'>
-          <Box1 key={`box-1`} opacity={0.5} />
+    <div className='' id="wrapper">
+      <div className='flex flex-row'>
+        <div className='inline-flex items-center w-[111px] gap-x-[6px] flex-grow-0'>
+          <div className='flex-grow-0 wv-ibmplex wv-bold wv-b7 text-right'>{CATEGORY_INFO[0].title}</div>
+          <div className='flex-shrink-0 w-[30px] h-[30px]'>{CATEGORY_INFO[0].icon}</div>
+        </div>
+        <div >
+          <DynamicBox4AreaChart series={series1} />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicStackedAreaChart step={1} /></div>
-        <div className='w-[360px] h-fit'>
-          <Box1 key='box-2' />
+      <div className='flex flex-row'>
+        <div className='inline-flex items-center w-[111px] gap-x-[6px] flex-grow-0'>
+          <div className='flex-grow-0 wv-ibmplex wv-bold wv-b7 text-right'>{CATEGORY_INFO[1].title}</div>
+          <div className='flex-shrink-0 w-[30px] h-[30px]'>{CATEGORY_INFO[1].icon}</div>
+        </div>
+        <div >
+          <DynamicBox4AreaChart series={series2} />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicStackedAreaChart step={2} /></div>
-        <div className='w-[360px] h-fit'>
-          <Box3 />
+      <div className='flex flex-row'>
+        <div className='inline-flex items-center w-[111px] gap-x-[6px] flex-grow-0'>
+          <div className='flex-grow-0 wv-ibmplex wv-bold wv-b7 text-right'>{CATEGORY_INFO[2].title}</div>
+          <div className='flex-shrink-0 w-[30px] h-[30px]'>{CATEGORY_INFO[2].icon}</div>
+        </div>
+        <div >
+          <DynamicBox4AreaChart series={series3} />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><Box4ChartCollection /></div>
-        <div className='w-[360px] h-fit'>
-          <Box4 />
+      <div className='flex flex-row'>
+        <div className='inline-flex items-center w-[111px] gap-x-[6px] flex-grow-0'>
+          <div className='flex-grow-0 wv-ibmplex wv-bold wv-b7 text-right'>{CATEGORY_INFO[3].title}</div>
+          <div className='flex-shrink-0 w-[30px] h-[30px]'>{CATEGORY_INFO[3].icon}</div>
+        </div>
+        <div >
+          <DynamicBox4AreaChart series={series4} />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicBox5ChartNew step={5} selectFilter={selectFilter} csvData={csvData} /></div>
-        <div className='w-[360px] h-fit'>
-          <Box5 setSelectFilter={setSelectFilter} />
-        </div>
-      </div>
-
-    </div >
-
+    </div>
   )
 }
 
-export default Section2
+export default Box4ChartCollection

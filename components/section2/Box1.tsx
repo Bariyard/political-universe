@@ -22,17 +22,17 @@ const RenderPeriod = ({ data, index, opacity, total }: {
   total: number
 }) => {
 
-  const countUp = useCountUp({
-    ref: `counter-${index}`,
-    end: data.count,
-    separator: ",",
-    enableScrollSpy: true,
-    scrollSpyDelay: 1000,
+  // const countUp = useCountUp({
+  //   ref: `counter-${index}`,
+  //   end: data.count,
+  //   separator: ",",
+  //   enableScrollSpy: true,
+  //   scrollSpyDelay: 1000,
 
-  });
+  // });
 
   return <div id={`main-viz-${index}`}
-    className='w-1/2 h-full flex flex-col items-center transition-opacity' style={{ opacity: index === 1 ? opacity || 1 : 1 }}>
+    className='w-1/2 h-full flex-1 flex-grow flex flex-col items-center transition-opacity' style={{ opacity: index === 1 ? opacity || 1 : 1 }}>
     <div className='w-[48px] h-[48px] mb-[6px]'>{data.icon}</div>
     <div className='wv-kondolar wv-bold wv-h10'>
       <div>{data.title}</div>
@@ -40,16 +40,14 @@ const RenderPeriod = ({ data, index, opacity, total }: {
     <div className='wv-ibmplex wv-b6 '>
       {data.range}
     </div>
-    <div className='wv-ibmplex wv-b6 wv-bold !pb-[20px] !mb-auto'>
+    <div className='wv-ibmplex wv-b6 wv-bold !mb-[20px] min-h-[20px]'>
       {`${Math.floor(Math.abs(data.total) / 12)} ปี ${Math.abs(data.total) % 12} เดือน`}
     </div>
     <div className='w-full h-[100px] flex-shrink-0 flex flex-col mt-auto'>
       <div className={`w-full bg-white mt-auto`} style={{ height: `${(data.count / total) * 100}px` }} />
     </div>
     <div className='flex-grow-0 mt-[10px] wv-ibmplex wv-bold wv-h11'>
-      <span>{data.count &&
-        <span id={`counter-${index}`} />}
-        &nbsp; เหตุการณ์ </span>
+      <span>{data.count} เหตุการณ์</span>
 
     </div>
   </div>
@@ -170,7 +168,7 @@ const Box1 = ({ opacity }: Props) => {
               flex flex-col justify-center'>
       <div className='wv-kondolar wv-bold wv-h11 leading-[140%] !mb-[10px]'>จากข้อมูลข่าวออนไลน์ย้อนหลัง 10 ปีกว่า</div>
       <div className='wv-kondolar wv-bold wv-h8 leading-[140%]'>10 กว่าปีที่ผ่านมา<br /> การเมืองไทยอยู่ในรัฐบาล 2<br /> ช่วงหลัก คือ</div>
-      <div className='flex flex-row gap-x-[20px] px-[25px] mt-[20px]'>
+      <div className='flex flex-row gap-x-[10px] px-[25px] mt-[20px]'>
         {MAIN_VIZ_DATA.map((data, index) => {
           return <RenderPeriod key={`main-viz-${index}`} data={data} index={index} opacity={opacity} total={box1Data.total} />
         })}

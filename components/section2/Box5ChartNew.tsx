@@ -5,12 +5,15 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 type Props = {
   step: number
+  selectFilter: string,
+  csvData: ApexAxisChartSeries
 }
 
 type VIZ4_TYPE = { year: number, positive: number, negative: number }
 
-const StackedAreaChartNew = ({ step }: Props) => {
+const Box5ChartNew = ({ step, selectFilter, csvData }: Props) => {
 
+  const [originalSeries, setOriginalSeries] = useState<ApexAxisChartSeries>([])
   const [series, setSeries] = useState<ApexAxisChartSeries>([])
   const chartRef = useRef<ReactApexChart>(null)
   const loadDataSet = useCallback(async () => {
@@ -35,12 +38,27 @@ const StackedAreaChartNew = ({ step }: Props) => {
       name: 'negative',
       data: negativeData
     }])
+    setOriginalSeries([{
+      name: "positive",
+      data: positiveData
+    },
+    {
+      name: 'negative',
+      data: negativeData
+    }])
 
   }, [])
 
   useEffect(() => {
     loadDataSet()
   }, [loadDataSet])
+
+  useEffect(() => {
+    if (selectFilter) {
+      setSeries([...originalSeries, ...csvData])
+    }
+  }, [selectFilter, originalSeries, csvData])
+
 
   const [options, setOptions] = useState<ApexOptions>({
     chart: {
@@ -211,7 +229,6 @@ const StackedAreaChartNew = ({ step }: Props) => {
     xaxis: {
       position: 'top',
       type: 'category',
-
       categories: [
         '54',
         '55',
@@ -380,4 +397,4 @@ const StackedAreaChartNew = ({ step }: Props) => {
   )
 }
 
-export default StackedAreaChartNew
+export default Box5ChartNew
