@@ -1,22 +1,86 @@
 import React from 'react'
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
-import Tooltip from '../utils/tooltip';
+import * as d3 from 'd3'
+import CountUp from 'react-countup';
 
 type Props = {}
 
-
+type VIZ1_TYPE = { total_event: number, total_person: number }
 const Content1 = (props: Props) => {
 
   const [openDialog, setOpenDialog] = React.useState(false)
+  const [viz1Data, setViz1Data] = React.useState<VIZ1_TYPE>({
+    total_event: 0,
+    total_person: 0
+  })
+
+  const triggerRef = React.useRef<HTMLDivElement>(null)
+  const fetchViz1 = React.useCallback(
+    async () => {
+
+      const csv = await d3.csv<VIZ1_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz1-summary.csv`, d3.autoType)
+      csv.map(({ total_event, total_person }) => {
+        setViz1Data({
+          total_event,
+          total_person,
+        })
+      })
+    },
+    [],
+  )
+
+  const [isEnter, setIsEnter] = React.useState(false)
+
+  React.useEffect(() => {
+    fetchViz1()
+    function isInViewport(element: HTMLDivElement) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+    function handleScroll() {
+      setIsEnter(isInViewport(triggerRef.current as HTMLDivElement))
+    }
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scrolll', handleScroll)
+    }
+
+  }, [fetchViz1])
+
+
+
 
   return (
     <div className='text-center tablet:text-left mb-[150px]'>
       <div className='max-w-[957px] mx-auto mb-[43px]'>
         <div className='flex flex-col tablet:flex-row'>
-          <div className='wv-kondolar wv-h4 wv-black leading-[125%] flex flex-col gap-y-[4px] !mb-[18px] w-1/2'>
-            <span>10 ปี</span>
-            <span>3, 422 เหตุการณ์</span>
-            <span>129 ตัวละคร</span>
+          <div className='wv-kondolar wv-h4 wv-black leading-[125%] flex flex-col gap-y-[4px] !mb-[18px] w-1/2' ref={triggerRef}>
+            <span>{isEnter && <CountUp
+              start={1}
+              end={10}
+              duration={2.75}
+              redraw={true} />} ปี</span>
+            <span>
+              {isEnter && <CountUp
+                start={0}
+                end={viz1Data?.total_event}
+                duration={2.75}
+                separator=","
+                redraw={true}
+              />} เหตุการณ์</span>
+            <span>
+              {isEnter && <CountUp
+                start={0}
+                end={viz1Data?.total_person}
+                duration={2.75}
+                separator=","
+                redraw={true}
+              />} ตัวละคร</span>
           </div>
           <div className='w-1/2
             wv-ibmplex wv-b3 leading-[150%]'>
