@@ -1,13 +1,62 @@
 import React from 'react'
 import * as d3 from 'd3'
+import dayjs from 'dayjs';
+import CountUp, { useCountUp } from 'react-countup';
 type Props = {
   opacity?: number;
 }
 
+type BOX1_VIZ_DATA_TYPE = { total: number, pm_01: number, pm_02: number }
+
+
+
+const RenderPeriod = ({ data, index, opacity, total }: {
+  data: {
+    icon: JSX.Element;
+    title: string;
+    range: JSX.Element;
+    total: number;
+    count: number;
+  }, index: number,
+  opacity?: number
+  total: number
+}) => {
+
+  const countUp = useCountUp({
+    ref: `counter-${index}`,
+    end: data.count,
+    separator: ",",
+    enableScrollSpy: true,
+    scrollSpyDelay: 1000,
+
+  });
+
+  return <div id={`main-viz-${index}`}
+    className='w-1/2 h-full flex flex-col items-center transition-opacity' style={{ opacity: index === 1 ? opacity || 1 : 1 }}>
+    <div className='w-[48px] h-[48px] mb-[6px]'>{data.icon}</div>
+    <div className='wv-kondolar wv-bold wv-h10'>
+      <div>{data.title}</div>
+    </div>
+    <div className='wv-ibmplex wv-b6 '>
+      {data.range}
+    </div>
+    <div className='wv-ibmplex wv-b6 wv-bold !pb-[20px] !mb-auto'>
+      {`${Math.floor(Math.abs(data.total) / 12)} ปี ${Math.abs(data.total) % 12} เดือน`}
+    </div>
+    <div className='w-full h-[100px] flex-shrink-0 flex flex-col mt-auto'>
+      <div className={`w-full bg-white mt-auto`} style={{ height: `${(data.count / total) * 100}px` }} />
+    </div>
+    <div className='flex-grow-0 mt-[10px] wv-ibmplex wv-bold wv-h11'>
+      <span>{data.count &&
+        <span id={`counter-${index}`} />}
+        &nbsp; เหตุการณ์ </span>
+
+    </div>
+  </div>
+}
+
 const Box1 = ({ opacity }: Props) => {
-
-
-  const MAIN_VIZ_DATA = [
+  let MAIN_VIZ_DATA = React.useMemo(() => [
     {
       icon:
         <svg className='w-full h-full' viewBox="0 0 175 175" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,9 +88,9 @@ const Box1 = ({ opacity }: Props) => {
           <path d="M56.646 100.128C57.4816 100.424 58.2448 100.893 58.8851 101.506C59.5255 102.119 60.0283 102.861 60.3603 103.682" stroke="black" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M121.709 100.128C120.873 100.424 120.11 100.893 119.47 101.506C118.829 102.119 118.327 102.861 117.995 103.682" stroke="black" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>,
-      title: 'ยิ่งลักษณ์',
-      range: "xx มี.ค. 54 - xx พ.ค. 57",
-      total: "2 ปี  6 เดือน",
+      title: 'รัฐบาลยิ่งลักษณ์',
+      range: <div>04 มี.ค. 54 <br />- 22 พ.ค. 57</div>,
+      total: dayjs('2011-03-04').diff('2014-05-22', 'month'),
       count: 2433,
     },
     {
@@ -81,17 +130,39 @@ const Box1 = ({ opacity }: Props) => {
           <path d="M55.1143 97.2922L56.2038 101.451" stroke="black" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M120.024 97.2922L118.949 101.451" stroke="black" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>,
-      title: 'ยิ่งลักษณ์',
-      range: "xx มี.ค. 54 - xx พ.ค. 57",
-      total: "2 ปี  6 เดือน",
+      title: 'รัฐบาลประยุทธ์',
+      range: <div>22 พ.ค. 57 <br />- ปัจจุบัน</div>,
+      total: dayjs('2014-05-22').diff(dayjs(), 'month'),
       count: 4433,
 
     }
-  ]
+  ], [])
 
-  var x = d3.scaleLinear()
-    .domain([0, Math.max.apply(Math, MAIN_VIZ_DATA.map(function (o) { return o.count; }))])
-    .range([0, 120]);
+  // var x = d3.scaleLinear()
+  //   .domain([0, Math.max.apply(Math, MAIN_VIZ_DATA.map(function (o) { return o.count; }))])
+  //   .range([0, 120]);
+
+  const [box1Data, setBox1Data] = React.useState<BOX1_VIZ_DATA_TYPE>({
+    total: 1,
+    pm_01: 1,
+    pm_02: 1,
+  })
+  const fetchBox1 = React.useCallback(
+    async () => {
+      const csv = await d3.csv<BOX1_VIZ_DATA_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz3-how-many-event-per-pm-period.csv`, d3.autoType)
+      csv.map((data) => {
+        setBox1Data(data)
+        MAIN_VIZ_DATA[0].count = data.pm_01
+        MAIN_VIZ_DATA[1].count = data.pm_02
+      })
+    },
+    [MAIN_VIZ_DATA],
+  )
+
+  React.useEffect(() => {
+    fetchBox1()
+  }, [fetchBox1])
+
 
   return (
 
@@ -99,22 +170,10 @@ const Box1 = ({ opacity }: Props) => {
               flex flex-col justify-center'>
       <div className='wv-kondolar wv-bold wv-h11 leading-[140%] !mb-[10px]'>จากข้อมูลข่าวออนไลน์ย้อนหลัง 10 ปีกว่า</div>
       <div className='wv-kondolar wv-bold wv-h8 leading-[140%]'>10 กว่าปีที่ผ่านมา<br /> การเมืองไทยอยู่ในรัฐบาล 2<br /> ช่วงหลัก คือ</div>
-      <div className='flex flex-row gap-x-[20px] px-[50px] mt-[20px]'>
-        {MAIN_VIZ_DATA.map((data, index) => (
-          <div key={`${data.title}`} id={`main-viz-${index}`}
-            className='w-1/2 h-full flex flex-col items-center transition-opacity' style={{ opacity: index === MAIN_VIZ_DATA.length - 1 ? opacity || 1 : 1 }}>
-            <div className='w-[48px] h-[48px] mb-[6px]'>{data.icon}</div>
-            <div className='wv-kondolar wv-bold wv-h10'>
-              <div>รัฐบาล</div>
-              <div>{data.title}</div>
-            </div>
-            <div className='wv-ibmplex wv-b6 !mb-[20px]'>
-              {data.range}
-            </div>
-            <div className={`w-full bg-white mt-auto`} style={{ height: `${x(data.count)}px` }} />
-            <div className='mt-[10px] wv-ibmplex wv-bold wv-h11'>{data.count} เหตุการณ์</div>
-          </div>
-        ))}
+      <div className='flex flex-row gap-x-[20px] px-[25px] mt-[20px]'>
+        {MAIN_VIZ_DATA.map((data, index) => {
+          return <RenderPeriod key={`main-viz-${index}`} data={data} index={index} opacity={opacity} total={box1Data.total} />
+        })}
       </div>
     </div>
   )

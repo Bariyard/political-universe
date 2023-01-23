@@ -1,10 +1,32 @@
-import React, { useState } from 'react'
-import { CATEGORY_INFO, LANDING_SVG } from '../utils'
+import React, { useState, useEffect } from 'react'
+import { CATEGORY_INFO, getCategoryBorderColor, LANDING_SVG } from '../utils'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
+import * as d3 from 'd3'
+import { displayPartsToString } from 'typescript';
 
+type VIZ2_RAW = {
+  id: number,
+  groups: string,
+  sub_categories: string,
+  categories: string,
+  person: string,
+  keyword: string | string[],
+  count: number
+}
+type VIZ2_TYPE = {
+  [index: string]: {
+    id: number,
+    groups: string,
+    sub_categories: string,
+    person: string,
+    keyword: string | string[],
+    count: number
+    img?: string
+  }[]
+}
 const CategorySlide = () => {
 
   // const pagination = {
@@ -12,8 +34,43 @@ const CategorySlide = () => {
   //   renderBullet: function (index: number, className: string) {
   //     return '<span class="' + className + ' swiper-dot">' + (index + 1) + "</span>";
   //   },
-
   // };
+
+  const [viz2Data, setViz2Data] = React.useState<VIZ2_TYPE>({})
+  const [category, setCategory] = useState<string[]>([])
+
+  const fetchViz2 = React.useCallback(
+    async () => {
+      const csv = await d3.csv<VIZ2_RAW>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz2-person-event-count.csv`, d3.autoType)
+      // build category from data
+      let categoryList: string[] = []
+      csv.map(({
+        categories,
+        ...rest
+      }) => {
+        categoryList.push(categories)
+      })
+      setCategory(Array.from(new Set(categoryList)))
+
+      // // get categories
+      // // build 
+      let viz2Object: VIZ2_TYPE = Object.fromEntries(Array.from(new Set(categoryList)).map(key => [key, []]));
+      csv.map(({
+        categories,
+        person,
+        ...rest
+      }) => {
+        viz2Object[categories] = [...viz2Object[categories], { person, ...rest, img: `bg-${person.replaceAll(' ', '-')}` }]
+      })
+      setViz2Data(viz2Object)
+
+    },
+    [],
+  )
+  useEffect(() => {
+    fetchViz2()
+  }, [fetchViz2])
+
 
   const content = [
     {
@@ -56,7 +113,7 @@ const CategorySlide = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 4320,
+          delay: 432000,
           disableOnInteraction: false,
 
         }}
@@ -81,17 +138,20 @@ const CategorySlide = () => {
                 <div className='wv-kondolar wv-bold wv-h9'>{data.title}</div>
               </div>
               <div className='flex flex-col gap-y-[6px]'>
-                {content.map((data, index) => (
-                  <div key={`${data.person}`}
+                {viz2Data[data.title] && viz2Data[data.title].slice(0, 3).map((row, rindex) => (
+                  <div key={`${row.person}`}
                     className='border-[1px] border-solid border-neutral-super-white p-[10px] rounded-[4px]
                 flex flex-row items-center gap-[8px]'>
-                    <div className='w-[24px] h-[24px] 
+                    <div className='flex-shrink-0 w-[24px] h-[24px] 
                   wv-ibmplex wv-bold wv-b6 leading-[24px] align-middle
-                  text-neutral-super-black text-center bg-neutral-super-white'>{index + 1}</div>
-                    <div className='w-[64px] h-[64px] border-party-01 rounded-full border-[4px]' />
+                  text-neutral-super-black text-center bg-neutral-super-white'>{rindex + 1}</div>
+                    {/* <div className='w-[64px] h-[64px] border-party-01 rounded-full border-[4px]' > */}
+                    <div className={`flex-shrink-0 ${getCategoryBorderColor(data.title)} border-[4px] rounded-full w-[64px] h-[64px]`} >
+                      <div className={`${row.img} grayscale bg-contain w-full h-full rounded-full`} />
+                    </div>
                     <div className='wv-ibmplex text-left'>
-                      <div className='wv-bold wv-b5 leading-[150%]'>{data.person}</div>
-                      <div className='wv-b6 leading-[150%]'>{data.num_event} เหตุการณ์</div>
+                      <div className='wv-bold wv-b5 leading-[150%]'>{row.person}</div>
+                      <div className='wv-b6 leading-[150%]'>{row.count} เหตุการณ์</div>
                       <div className='mt-[7px] p-[4px] inline-flex items-center gap-[4px]'>
                         <div className='wv-u4 wv-semibold'>ดูเหตุการณ์</div>
                         <svg width={5} height={8} viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,6 +206,23 @@ const Content4 = () => {
   return (
     <div className='flex flex-col items-center text-center
     max-w-[890px] mx-auto mb-[140px]'>
+      <div className='hidden'>
+        <div className='hidden bg-พลเอก-เปรม-ติณสูลานนท์' />
+        <div className='hidden bg-พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว' />
+        <div className='hidden bg-ทูลกระหม่อมหญิงอุบลรัตนราชกัญญา-สิริวัฒนาพรรณวดี"' />
+
+        <div className='hidden bg-พลเอก-อภิรัชต์-คงสมพงษ์' />
+        <div className='hidden bg-พลตำรวจเอก-จักรทิพย์-ชัยจินดา' />
+        <div className='hidden bg-พลอากาศเอก-แอร์บูล-สุทธิวรรณ' />
+
+        <div className='hidden bg-คณะกรรมการการเลือกตั้ง' />
+        <div className='hidden bg-คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ' />
+        <div className='hidden bg-ศาลรัฐธรรมนูญ' />
+
+        <div className='hidden bg-พรรคประชาธิปัตย์' />
+        <div className='hidden bg-พรรคเพื่อไทย' />
+        <div className='hidden bg-พลเอก-ประยุทธ์-จันทร์โอชา' />
+      </div>
       <div className='flex flex-col gap-y-[30px] w-full'>
         <div className='wv-kondolar wv-h4 wv-black leading-[125%]'>
           เลือกสำรวจ

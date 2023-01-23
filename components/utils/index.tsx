@@ -1,6 +1,6 @@
 export const CATEGORY_INFO = [
   {
-    title: "กลุ่มวัง & องคมนตรี",
+    title: "วัง & องคมนตรี",
     id: 1,
     bgcolor: 'bg-party-01',
     bordercolor: 'border-party-01',
@@ -25,7 +25,7 @@ export const CATEGORY_INFO = [
       </svg >,
   },
   {
-    title: "กลุ่มทหาร & ตำรวจ",
+    title: "ตำรวจ & ทหาร",
     id: 2,
     bgcolor: 'bg-party-02',
     bordercolor: 'border-party-02',

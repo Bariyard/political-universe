@@ -218,4 +218,8 @@
     fill: black;
     border-radius: 4px;
   }
+  .apexcharts-area,
+  .apexcharts-area-series {
+    transition: fill 2s ease !important;
+  }
 }

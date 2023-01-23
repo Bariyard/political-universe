@@ -3,6 +3,20 @@ import * as d3 from 'd3'
 import { POSITIVE_ICON_COLOR, NEGATIVE_ICON_COLOR, POSITIVE_BW, NEGATIVE_BW, PM_01, PM_02 } from '../utils'
 type Props = {}
 
+type BOX3_VIZ_DATA_TYPE = {
+  period: string,
+  plus: number,
+  minus: number,
+  total: number,
+  plus_percentage: number,
+  minus_percentage: number,
+
+  icon?: JSX.Element,
+  title?: string
+
+}
+
+
 const Box3 = (props: Props) => {
   const [expand, setExpand] = React.useState(-1)
   const CONTENT = [
@@ -28,26 +42,46 @@ const Box3 = (props: Props) => {
     }
   ]
 
-  const VIZ_DATA = [
-    {
-      icon:
-        <PM_01 />,
-      title: 'รัฐบาลยิ่งลักษณ์',
-      count: 2433,
-      positive_count: 1000,
-      negative_count: 2433,
+
+
+  const [box3Data, setBox3Data] = React.useState<BOX3_VIZ_DATA_TYPE[]>([])
+  const fetchBox3 = React.useCallback(
+    async () => {
+      const VIZ_DATA = [
+        {
+          icon:
+            <PM_01 />,
+          title: 'รัฐบาลยิ่งลักษณ์',
+          count: 2433,
+          positive_count: 1000,
+          negative_count: 2433,
+        },
+        {
+          icon:
+            <PM_02 />,
+          title: 'รัฐบาลประยุทธ์',
+          count: 4033,
+          positive_count: 4000,
+          negative_count: 33,
+
+        }
+      ]
+
+      const csv = await d3.csv<BOX3_VIZ_DATA_TYPE>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-sum-percentage.csv`, d3.autoType)
+      let list: BOX3_VIZ_DATA_TYPE[] = []
+      csv.map((data, index) => {
+        list = [...list, { ...data, icon: VIZ_DATA[index].icon, title: VIZ_DATA[index].title }]
+      })
+      setBox3Data(list)
     },
-    {
-      icon:
-        <PM_02 />,
-      title: 'รัฐบาลประยุทธ์',
-      count: 4033,
-      positive_count: 4000,
-      negative_count: 33,
+    [setBox3Data],
+  )
 
-    }
-  ]
+  React.useEffect(() => {
+    fetchBox3()
+  }, [fetchBox3])
 
+  // console.log(box3Data);
   return (
     <div className='py-[10px] px-[10px] border-dashed border-white border-[1px] rounded-[10px] text-center h-full
               flex flex-col justify-center gap-y-[10px]'>
@@ -96,25 +130,25 @@ const Box3 = (props: Props) => {
         เมื่อสรุปแล้ว พบว่ารัฐบาลยิ่งลักษณ์<br />
         มีแนวโน้มเหตุการณ์เป็นลบมากกว่า
       </div>
-      <div className='flex flex-row gap-x-[8px] px-[30px] pb-[30px]'>
-        {VIZ_DATA.map((data) => (
+      <div className='flex flex-row gap-x-[8px] px-[30px] pb-[30px] justify-center'>
+        {box3Data.map((data) => (
           <div key={data.title} className='flex flex-col items-center gap-y-[6px]  text-center'>
             <div className='w-[60px] h-[60px]'>{data.icon}</div>
             <div className='wv-ibmplex wv-b6 wv-bold'>{data.title}</div>
-            <div className='wv-ibmplex wv-b6'>{data.count} เหตุการณ์</div>
+            <div className='wv-ibmplex wv-b6'>{data.total} เหตุการณ์</div>
             <div>
               <div className='flex flex-row justify-start items-center gap-x-1'>
                 <div className='w-[12px] h-[12px]'><POSITIVE_BW /></div>
-                <div className='h-[12px] bg-action-positive' style={{ width: `${(data.positive_count / data.count) * 72}px` }} />
-                <div>
-                  {((data.positive_count / data.count) * 100).toFixed(0)}%
+                <div className='h-[12px] bg-action-positive' style={{ width: `${(data.plus_percentage / 100) * 72}px` }} />
+                <div className='wv-ibmplex wv-u5 wv-semibold'>
+                  {data.plus_percentage.toFixed(0)}%
                 </div>
               </div>
               <div className='flex flex-row justify-start items-center gap-x-1'>
                 <div className='w-[12px] h-[12px]'><NEGATIVE_BW /></div>
-                <div className='h-[12px] bg-action-negative' style={{ width: `${(data.negative_count / data.count) * 72}px` }} />
-                <div>
-                  {((data.negative_count / data.count) * 100).toFixed(0)}%
+                <div className='h-[12px] bg-action-negative' style={{ width: `${(data.minus_percentage / 100) * 72}px` }} />
+                <div className='wv-ibmplex wv-u5 wv-semibold'>
+                  {data.minus_percentage.toFixed(0)}%
                 </div>
               </div>
             </div>

@@ -52,9 +52,6 @@ const Content1 = (props: Props) => {
 
   }, [fetchViz1])
 
-
-
-
   return (
     <div className='text-center tablet:text-left mb-[150px]'>
       <div className='max-w-[957px] mx-auto mb-[43px]'>

@@ -6,10 +6,6 @@ import Content2 from './Content2'
 import Content3 from './Content3'
 import Content4 from './Content4'
 import Cover from './Cover'
-const DynamicStackedAreaChart = dynamic(
-  () => import('../section2/StackedAreaChartNew'),
-  { ssr: false }
-)
 // const DynamicHeader = dynamic(() => import('../section2/StackedAreaChartNew'), {
 //   ssr: false,
 // })
@@ -25,7 +21,7 @@ const Section1 = (props: Props) => {
       <Content3 />
       <Content4 />
       {/* <Chart /> */}
-      <DynamicStackedAreaChart />
+
 
     </div >
   )

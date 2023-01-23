@@ -1,16 +1,28 @@
-// @ts-nocheck
 import * as d3 from 'd3'
+import dynamic from 'next/dynamic'
 import React from 'react'
-import reactMarkdown from 'react-markdown'
 import scrollama from 'scrollama'
-import { NEGATIVE_ICON_COLOR, POSITIVE_ICON_COLOR } from '../utils'
 import Box1 from './Box1'
 import Box3 from './Box3'
 import Box4 from './Box4'
 import Box5 from './Box5'
-import StackedAreaChart, { drawDefaultChart, drawStep1Chart } from './viz/stacked'
 import { DrawViz } from './viz/test'
+
+const DynamicStackedAreaChart = dynamic(
+  () => import('./StackedAreaChartNew'),
+  { ssr: false }
+)
+
 type Props = {}
+
+
+const ChartContent = ({ step }: { step: number }) => {
+  switch (step) {
+    case 1: return <DynamicStackedAreaChart step={1} />;
+    case 2: return <DynamicStackedAreaChart step={2} />;
+    default: return <DynamicStackedAreaChart step={0} />;
+  }
+}
 
 const Section2 = (props: Props) => {
   const [isInit, setIsInit] = React.useState(false)
@@ -21,26 +33,6 @@ const Section2 = (props: Props) => {
   const [data, setData] = React.useState()
   const stateRef = React.useRef();
   stateRef.current = data
-
-  const drawChart = React.useCallback(async (svg: React.RefObject<SVGElement>) => {
-
-    const csv = await d3.csv(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz4-sum-all-positive-negative-event.csv`, d3.autoType)
-    await setData(csv)
-    StackedAreaChart(svg, csv, {
-      x: d => d.year,
-      y: d => d.count,
-      z: d => d.type,
-      // xType: d3.scaleLinear,
-      yLabel: "จำนวนเหตุการณ์",
-      // width: Number(d3.select('figure').style('width')),
-      width: parseInt(d3.select("#chart").style("width"), 10),
-      height: 500,
-      // yDomain: [-200, 200],
-      xFormat: d3.timeFormat("%y"),
-      colors: ["#60C1AF", "#F92D46"]
-    })
-
-  }, [setData])
 
   const handleStepEnter = React.useCallback((response: any) => {
     var scrolly = d3.select("#scrolly");
@@ -54,52 +46,18 @@ const Section2 = (props: Props) => {
     setCurrentStep((prev) =>
       prev !== response.index ? response.index : prev)
 
-    // console.log(response)
-    // console.log(chart)
-    // if (!chart) return;
     switch (response.index) {
       case 0:
         if (response.direction === 'down') {
-          console.log('hit')
-          console.log(stateRef.current)
-          drawDefaultChart(
-            stateRef.current, {
-            x: d => d.year,
-            y: d => d.count,
-            z: d => d.type,
-            // xType: d3.scaleLinear,
-            yLabel: "จำนวนเหตุการณ์",
-            // width: Number(d3.select('figure').style('width')),
-            width: parseInt(d3.select("#chart").style("width"), 10),
-            height: 500,
-            // yDomain: [-200, 200],
-            // xFormat: d3.format("%"),
-            colors: ["#60C1AF", "#F92D46"]
-          }
-          )
 
         }
         break;
       case 1:
         if (response.direction === 'up') {
-          drawStep1Chart()
+
         }
         break;
     }
-    //   case 1:
-    //     d3.select('#main-viz-1').style("opacity", 1)
-    //     break;
-    // }
-    // update graphic based on step
-    // switch (response.index) {
-    //   case 0:
-    //     // toolTipState = 'title';
-    //     if (response.direction === 'up') {
-    //       dotColorGrey();
-    //     }
-    //     break;
-    // }
-
     step.classed("is-active", function (d, i) {
       return i === response.index;
     });
@@ -127,7 +85,6 @@ const Section2 = (props: Props) => {
 
 
   const handleResize = React.useCallback(
-
     () => {
       var scrolly = d3.select("#scrolly");
       var figure = scrolly.select("figure");
@@ -187,10 +144,6 @@ const Section2 = (props: Props) => {
     }
   }, [isInit, init, handleResize])
 
-  React.useEffect(() => {
-    if (svg)
-      drawChart(svg);
-  }, [svg, drawChart]);
 
 
   const getStepContent = () => {
@@ -211,9 +164,7 @@ const Section2 = (props: Props) => {
       <div id='scorlly-container' className='p-4 min-h-screen'>
         <section id="scrolly">
           <figure className='flex flex-col'>
-            <div id="chart" className='my-auto'>
-              <svg ref={svg} />
-            </div>
+            <ChartContent step={currentStep} />
           </figure>
           <div className='max-w-[360px]'>
             <div className='sticky top-1/2 bg-transparent min-w-[360px] transition-all -translate-y-1/2'>
@@ -226,6 +177,7 @@ const Section2 = (props: Props) => {
             <div className="scrolly-step" data-step={3} />
             <div className="scrolly-step" data-step={4} />
             <div className="scrolly-step" data-step={5} />
+            <div className="scrolly-step" data-step={6} />
           </article>
         </section>
       </div>

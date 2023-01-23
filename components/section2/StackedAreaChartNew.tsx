@@ -1,13 +1,15 @@
 import { ApexOptions } from 'apexcharts';
 import * as d3 from 'd3';
 import { DSVParsedArray } from 'd3';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-type Props = {}
+type Props = {
+  step: number
+}
 
 type VIZ4_TYPE = { year: number, positive: number, negative: number }
 
-const StackedAreaChartNew = (props: Props) => {
+const StackedAreaChartNew = ({ step }: Props) => {
 
   const [series, setSeries] = useState<ApexAxisChartSeries>([])
   const chartRef = useRef<ReactApexChart>(null)
@@ -40,10 +42,10 @@ const StackedAreaChartNew = (props: Props) => {
     loadDataSet()
   }, [loadDataSet])
 
-  const options: ApexOptions = {
+  const [options, setOptions] = useState<ApexOptions>({
     chart: {
       type: "area",
-      height: 365,
+      height: 385,
       toolbar: {
         show: false
       },
@@ -54,7 +56,14 @@ const StackedAreaChartNew = (props: Props) => {
       zoom: {
         enabled: false,
       },
-
+      animations: {
+        enabled: true,
+        speed: 432,
+        dynamicAnimation: {
+          enabled: true,
+          speed: 432
+        }
+      },
       // stacked: true,
       events: {
         //   selection: function (_, e: any) {
@@ -93,7 +102,6 @@ const StackedAreaChartNew = (props: Props) => {
             .attr("x2", `${configOptions.globals.gridWidth}`)
             .attr("y2", `-12`);
 
-
           // console.log(configOptions.globals.translateXAxisX)
           const xScale = d3.scaleLinear([54, 65], [configOptions.globals.translateXAxisX, configOptions.globals.gridWidth])
 
@@ -114,9 +122,9 @@ const StackedAreaChartNew = (props: Props) => {
             .style("stroke", "white")
             .style("stroke-width", '2px')
             .attr('class', 'dashed')
-            .attr("x1", xScale(56))
+            .attr("x1", xScale(57))
             .attr("y1", 0)
-            .attr("x2", xScale(56))
+            .attr("x2", xScale(57))
             .attr("y2", configOptions.globals.gridHeight);
 
           // Decoration icon
@@ -130,7 +138,7 @@ const StackedAreaChartNew = (props: Props) => {
             .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_02_label.svg`)
             .attr("width", 49)
             .attr("height", 94)
-            .attr("x", xScale(56) - 25.5)
+            .attr("x", xScale(57) - 25.5)
             .attr("y", -94 * .75);
 
           apexchartsInner.append("svg:image")
@@ -141,7 +149,7 @@ const StackedAreaChartNew = (props: Props) => {
             .attr("y", configOptions.globals.xAxisLabelsHeight * .5);
           apexchartsInner.append("svg:image")
             .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_02-range.svg`)
-            .attr("width", xScale(65) - xScale(56))
+            .attr("width", xScale(65) - xScale(57))
             .attr("height", 24)
             .attr("x", xScale(56.1))
             .attr("y", configOptions.globals.xAxisLabelsHeight);
@@ -341,16 +349,25 @@ const StackedAreaChartNew = (props: Props) => {
     //     '<li><b>Number</b>: ' + data.y + '</li>' +
     //     '</ul>';
     //   }
-    // }
-  }
+    // }  
+  })
+
+  useEffect(() => {
+    switch (step) {
+      case 0: setOptions((prev) => ({ ...prev, colors: ["#FFFFFF15", "#FFFFFF15"] })); break;
+      case 1: setOptions((prev) => ({ ...prev, colors: ["#ffffffd1", "#FFFFFFd1"] })); break;
+      case 2: setOptions((prev) => ({ ...prev, colors: ["#60C1AF", "#F92D46"] })); break;
+
+    }
+  }, [step])
+
 
   return (
-    <div id='chart' className='w-[600px]'>
+    <div id='chart' className='w-[600px] my-auto'>
       <ReactApexChart
-
         id="apex-chart"
         type={"area"}
-        height={365}
+        height={400}
         options={options}
         series={series}
         ref={chartRef}
