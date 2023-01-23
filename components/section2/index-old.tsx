@@ -1,3 +1,4 @@
+// @type-nocheck
 import * as d3 from 'd3'
 import dynamic from 'next/dynamic'
 import React from 'react'
@@ -154,7 +155,7 @@ const Section2 = (props: Props) => {
       case 1: return <Box1 key='box-2' />
       case 2: return <Box3 />
       case 3: return <Box4 />
-      case 4: return <Box5 />
+      // case 4: return <Box5 />
       default: return <></>
     }
   }
