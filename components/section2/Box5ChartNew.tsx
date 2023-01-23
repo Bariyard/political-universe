@@ -149,26 +149,26 @@ const Box5ChartNew = ({ step, selectFilter, csvData }: Props) => {
 
           // Decoration icon
           apexchartsInner.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_01_label.svg`)
+            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_01_label.svg`)
             .attr("width", 49)
             .attr("height", 94)
             .attr("x", xScale(54) - 24.5)
             .attr("y", -94 * .75);
           apexchartsInner.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_02_label.svg`)
+            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_02_label.svg`)
             .attr("width", 49)
             .attr("height", 94)
             .attr("x", xScale(57) - 25.5)
             .attr("y", -94 * .75);
 
           apexchartsInner.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_01-range.svg`)
+            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_01-range.svg`)
             .attr("width", 73)
             .attr("height", 48)
             .attr("x", xScale(55) - 73 * .5)
             .attr("y", configOptions.globals.xAxisLabelsHeight * .5);
           apexchartsInner.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/pm_02-range.svg`)
+            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_02-range.svg`)
             .attr("width", xScale(65) - xScale(57))
             .attr("height", 24)
             .attr("x", xScale(56.1))
@@ -176,7 +176,7 @@ const Box5ChartNew = ({ step, selectFilter, csvData }: Props) => {
 
           const chart = svg.select(`.apexcharts-svg`)
           chart.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}${process.env.BASE_PATH}/design_assets/03_main_viz/legend.svg`)
+            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/legend.svg`)
             .attr("width", 56)
             .attr("height", 176)
             .attr("x", configOptions.globals.translateY * .5 - 56 * .5)
