@@ -5,8 +5,16 @@ const basePath = "/political-universe";
 const options = {
   //you may need to modify the file address to suite your project
   files: "./out/**",
-  from: [/\/design_assets/g, /\\\/political-universe\/design_assets/g],
-  to: [`${basePath}/design_assets`, `\\\/political-universe\\\/design_assets`]
+  from: [
+    /\/design_assets/g,
+    /\\\/political-universe\/design_assets/g,
+    /\/political-universe\/political-universe/g
+  ],
+  to: [
+    `${basePath}/design_assets`,
+    `\\\/political-universe\\\/design_assets`,
+    `/political-universe`
+  ]
 };
 (async function () {
   try {
