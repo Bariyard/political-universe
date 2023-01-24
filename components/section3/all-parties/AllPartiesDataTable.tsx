@@ -1,6 +1,6 @@
 import React from 'react'
-import EventCard from '../EventCard'
-import MemberCard from '../MemberCard'
+import EventCard from '../../EventCard'
+import MemberCard from '../../MemberCard'
 
 type Props = {}
 

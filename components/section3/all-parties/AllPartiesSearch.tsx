@@ -1,5 +1,5 @@
 import React from 'react'
-import { CATEGORY_INFO } from '../utils'
+import { CATEGORY_INFO } from '../../utils'
 import AllPartiesDataTable from './AllPartiesDataTable'
 
 type Props = {}

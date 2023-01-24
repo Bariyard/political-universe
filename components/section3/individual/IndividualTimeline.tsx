@@ -1,5 +1,5 @@
 import React from 'react'
-import { NEGATIVE_ICON_COLOR, PM_01, PM_02, POSITIVE_ICON_COLOR } from '../utils'
+import { NEGATIVE_ICON_COLOR, PM_01, PM_02, POSITIVE_ICON_COLOR } from '../../utils'
 import IndividualDataTable from './IndividualDataTable'
 
 type Props = {}
