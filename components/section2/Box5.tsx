@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import React from 'react'
+import { VIZ6_RAW, VIZ6_TYPE } from '../../models/individual'
 import { VIZ2_TYPE } from '../section1/Content4'
 import { CATEGORY_INFO, getCategoryBorderColor, getCategoryIcon, PM_01, PM_02 } from '../utils'
 
@@ -7,31 +8,6 @@ type Props = {
   setSelectFilter: Function
 }
 
-type VIZ6_RAW = {
-  id: number;
-  groups: string;
-  sub_categories: string;
-  categories: string;
-  person: string;
-  keyword: string | string[];
-  count: number;
-  total_event: number
-  period_1_plus: number
-  period_1_minus: number
-  period_1_total: number
-  period_2_plus: number
-  period_2_minus: number
-  period_2_total: number
-  period_1_plus_percentage: number
-  period_1_minus_percentage: number
-  period_2_plus_percentage: number
-  period_2_minus_percentage: number
-  img?: string
-}
-
-type VIZ6_TYPE = {
-  [index: string]: VIZ6_RAW[];
-}
 
 const Box5 = ({ setSelectFilter }: Props) => {
   const FILTER_LIST = React.useMemo(() => [
@@ -103,30 +79,13 @@ const Box5 = ({ setSelectFilter }: Props) => {
     }
   }, [selectedFilter, FILTER_LIST, viz6Data, overallTopData])
 
-  if (viz6Data["พรรคการเมือง & กลุ่มการเมือง"]!)
-    console.log(viz6Data["พรรคการเมือง & กลุ่มการเมือง"]!.sort((a, b) => b.count - a.count));
-  console.log(top3Data);
+  // if (viz6Data["พรรคการเมือง & กลุ่มการเมือง"]!)
+  //   console.log(viz6Data["พรรคการเมือง & กลุ่มการเมือง"]!.sort((a, b) => b.count - a.count));
+  // console.log(top3Data);
 
   return (
     <div className='py-[10px] px-[10px] border-dashed border-white border-[1px] rounded-[10px] text-center h-full
               flex flex-col justify-center gap-y-[10px]'>
-      {/* <div className='hidden'>
-        <div className='hidden bg-พลเอก-เปรม-ติณสูลานนท์' />
-        <div className='hidden bg-พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว' />
-        <div className='hidden bg-ทูลกระหม่อมหญิงอุบลรัตนราชกัญญา-สิริวัฒนาพรรณวดี"' />
-
-        <div className='hidden bg-พลเอก-อภิรัชต์-คงสมพงษ์' />
-        <div className='hidden bg-พลตำรวจเอก-จักรทิพย์-ชัยจินดา' />
-        <div className='hidden bg-พลอากาศเอก-แอร์บูล-สุทธิวรรณ' />
-
-        <div className='hidden bg-คณะกรรมการการเลือกตั้ง' />
-        <div className='hidden bg-คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ' />
-        <div className='hidden bg-ศาลรัฐธรรมนูญ' />
-
-        <div className='hidden bg-พรรคประชาธิปัตย์' />
-        <div className='hidden bg-พรรคเพื่อไทย' />
-        <div className='hidden bg-พลเอก-ประยุทธ์-จันทร์โอชา' />
-      </div> */}
       <div className='wv-kondolar wv-bold wv-h8 leading-[140%]'>3 ตัวละครผู้มีส่วนเกี่ยวข้องกับ<br /> เหตุการณ์การเมืองถี่ที่สุด</div>
       <div className='wv-ibmplex wv-u2 wv-semibold'>เลือกประเภทกลุ่มทางการเมืองที่คุณสนใจ</div>
       <div className='max-w-[317px] mx-auto overflow-x-scroll'>

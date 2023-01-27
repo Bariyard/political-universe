@@ -54,10 +54,12 @@ const IndividualChart = ({ step, selectFilter, csvData }: Props) => {
   }, [loadDataSet])
 
   useEffect(() => {
-    if (selectFilter) {
+    if (csvData.length) {
       setSeries([...originalSeries, ...csvData])
+    } else {
+      setSeries([...originalSeries])
     }
-  }, [selectFilter, originalSeries, csvData])
+  }, [originalSeries, csvData])
 
 
   const [options, setOptions] = useState<ApexOptions>({
@@ -161,18 +163,18 @@ const IndividualChart = ({ step, selectFilter, csvData }: Props) => {
             .attr("x", xScale(57) - 25.5)
             .attr("y", -94 * .75);
 
-          apexchartsInner.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_01-range.svg`)
-            .attr("width", 73)
-            .attr("height", 48)
-            .attr("x", xScale(55) - 73 * .5)
-            .attr("y", configOptions.globals.xAxisLabelsHeight * .5);
-          apexchartsInner.append("svg:image")
-            .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_02-range.svg`)
-            .attr("width", xScale(65) - xScale(57))
-            .attr("height", 24)
-            .attr("x", xScale(56.1))
-            .attr("y", configOptions.globals.xAxisLabelsHeight);
+          // apexchartsInner.append("svg:image")
+          //   .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_01-range.svg`)
+          //   .attr("width", 73)
+          //   .attr("height", 48)
+          //   .attr("x", xScale(55) - 73 * .5)
+          //   .attr("y", configOptions.globals.xAxisLabelsHeight * .5);
+          // apexchartsInner.append("svg:image")
+          //   .attr("xlink:href", `${process.env.HOST}/design_assets/03_main_viz/pm_02-range.svg`)
+          //   .attr("width", xScale(65) - xScale(57))
+          //   .attr("height", 24)
+          //   .attr("x", xScale(56.1))
+          //   .attr("y", configOptions.globals.xAxisLabelsHeight);
 
           const chart = svg.select(`.apexcharts-svg`)
           chart.append("svg:image")

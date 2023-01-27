@@ -45,32 +45,19 @@ module.exports = {
         "transparent-white-20": "#FFFFFF"
       },
       backgroundImage: {
-        // คณะกรรมการตรวจเงินแผ่นดิน:
-        //   "url('/design_assets/05_profile_pic/top/คณะกรรมการตรวจเงินแผ่นดิน.jpg')",
-        // "เฉลิมพล-ศรีสวัสดิ์-1":
-        //   "url('/design_assets/05_profile_pic/top/เฉลิมพล-ศรีสวัสดิ์-1.jpg')",
-        // "เฉลิมพล-ศรีสวัสดิ์":
-        //   "url('/design_assets/05_profile_pic/top/เฉลิมพล-ศรีสวัสดิ์.jpg')",
-        // "ดำรงศักดิ์-กิตติประภัสร์":
-        //   "url('/design_assets/05_profile_pic/top/ดำรงศักดิ์-กิตติประภัสร์.jpg')",
-        // "ทักษิณ-ชินวัตร":
-        //   "url('/design_assets/05_profile_pic/top/ทักษิณ-ชินวัตร.jpg')",
         "พลเอก-เปรม-ติณสูลานนท์":
           "url('/design_assets/05_profile_pic/top/พลเอก-เปรม-ติณสูลานนท์.jpg')",
         พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว:
           "url('/design_assets/05_profile_pic/top/พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว.jpg')",
         "ทูลกระหม่อมหญิงอุบลรัตนราชกัญญา-สิริวัฒนาพรรณวดี":
           "url('/design_assets/05_profile_pic/top/ทูลกระหม่อมหญิงอุบลรัตนราชกัญญา-สิริวัฒนาพรรณวดี.jpg')",
-
         "พลเอก-อภิรัชต์-คงสมพงษ์":
           "url('/design_assets/05_profile_pic/top/พลเอก-อภิรัชต์-คงสมพงษ์.jpg')",
         "พลตำรวจเอก-จักรทิพย์-ชัยจินดา":
           "url('/design_assets/05_profile_pic/top/พลตำรวจเอก-จักรทิพย์-ชัยจินดา.jpg')",
         "พลอากาศเอก-แอร์บูล-สุทธิวรรณ":
           "url('/design_assets/05_profile_pic/top/พลอากาศเอก-แอร์บูล-สุทธิวรรณ.jpg')",
-
         ศาลปกครอง: "url('/design_assets/05_profile_pic/top/ศาลปกครอง.jpg')",
-        // ศาลยุติธรรม: "url('/design_assets/05_profile_pic/top/ศาลยุติธรรม.jpg')",
         ผู้ตรวจการแผ่นดิน:
           "url('/design_assets/05_profile_pic/top/ผู้ตรวจการแผ่นดิน.jpg')",
         คณะกรรมการการเลือกตั้ง:
@@ -79,15 +66,16 @@ module.exports = {
           "url('/design_assets/05_profile_pic/top/คณะกรรมการป้องกันและปราบปรามการทุจริตแห่งชาติ.jpg')",
         ศาลรัฐธรรมนูญ:
           "url('/design_assets/05_profile_pic/top/ศาลรัฐธรรมนูญ.jpg')",
-
         พรรคประชาธิปัตย์:
           "url('/design_assets/05_profile_pic/top/พรรคประชาธิปัตย์.jpg')",
         พรรคเพื่อไทย:
           "url('/design_assets/05_profile_pic/top/พรรคเพื่อไทย.jpg')",
         "พลเอก-ประยุทธ์-จันทร์โอชา":
-          "url('/design_assets/05_profile_pic/top/พลเอก-ประยุทธ์-จันทร์โอชา.jpg')"
-        // "พลเอก-สุรยุทธ์-จุลานนท์":
-        //   "url('/design_assets/05_profile_pic/top/พลเอก-สุรยุทธ์-จุลานนท์.jpg')"
+          "url('/design_assets/05_profile_pic/top/พลเอก-ประยุทธ์-จันทร์โอชา.jpg')",
+        "person-01": "url('/design_assets/04_party_icon/person/01.jpg')",
+        "person-02": "url('/design_assets/04_party_icon/person/02.jpg')",
+        "person-03": "url('/design_assets/04_party_icon/person/03.jpg')",
+        "person-04": "url('/design_assets/04_party_icon/person/04.jpg')"
       },
       boxShadow: {
         /* Effect styles */
