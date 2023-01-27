@@ -17,9 +17,9 @@ const Individual = (props: Props) => {
   const csvData = useIndividualStore((state) => state.individualAgg)
 
   return (
-    <div className='min-h-screen flex flex-row gap-x-[66px] max-w-[1170px] mx-auto'>
+    <div id='section3-individual' className='min-h-screen flex flex-row gap-x-[66px] max-w-[1170px] mx-auto'>
       <div className='w-full '>
-        <div className='wv-kondolar wv-bold wv-h8 !mb-[12px]'>ภาพรวมเหตุการณ์การเมืองย้อนหลังกว่า 10 ปี</div>
+        <div className='wv-kondolar wv-bold wv-h8 !mb-[12px] text-center'>ภาพรวมเหตุการณ์การเมืองย้อนหลังกว่า 10 ปี</div>
         <div className='flex flex-col justify-center h-full max-h-[80vh]'>
           <IndividualInfo />
           <div>

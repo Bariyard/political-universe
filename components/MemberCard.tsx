@@ -3,7 +3,7 @@ import { getCategoryBorderColor, getCategoryIcon } from './utils'
 
 
 const MemberCard = ({ person, category, total_event }: PERSON_TYPE) => {
-  const personImg = `bg-${person.replace(' ', '-')}`
+  const personImg = `bg-${person.replaceAll(' ', '-')}`
   return (
     <div className='flex flex-row px-[8px] py-[6px] gap-x-[8px] items-center'>
       <div className={`${getCategoryBorderColor(category)} flex-shrink-0 border-[4px] rounded-full w-[64px] h-[64px]`} >

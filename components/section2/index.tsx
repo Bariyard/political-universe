@@ -109,27 +109,30 @@ const Section2 = (props: Props) => {
 
 
   return (
-    <div className='max-w-[1100px] mx-auto'>
+    <div id='section2' className='max-w-[1100px] mx-auto'>
       <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicStackedAreaChart step={0} /></div>
+        <div className='flex-grow'>
+          <div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมือง ย้อนหลัง  10 ปี</div>
+          <DynamicStackedAreaChart step={0} />
+        </div>
         <div className='w-[360px] h-fit'>
           <Box1 key={`box-1`} opacity={0.5} />
         </div>
       </div>
       <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicStackedAreaChart step={1} /></div>
+        <div className='flex-grow'><div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมือง ย้อนหลัง  10 ปี</div><DynamicStackedAreaChart step={1} /></div>
         <div className='w-[360px] h-fit'>
           <Box1 key='box-2' />
         </div>
       </div>
       <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><DynamicStackedAreaChart step={2} /></div>
+        <div className='flex-grow'><div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมือง ย้อนหลัง  10 ปี</div><DynamicStackedAreaChart step={2} /></div>
         <div className='w-[360px] h-fit'>
           <Box3 />
         </div>
       </div>
       <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><Box4ChartCollection /></div>
+        <div className='flex-grow'><div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมืองแยกตามกลุ่มการเมืองย้อนหลัง  10 ปี</div><Box4ChartCollection /></div>
         <div className='w-[360px] h-fit'>
           <Box4 />
         </div>

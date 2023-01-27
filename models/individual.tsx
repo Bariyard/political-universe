@@ -47,6 +47,13 @@ export type INDIVIDUAL_DATA_TYPE = {
   img?: string
 }
 
+export type RELATED_DATA_TYPE = {
+  person: string,
+  count: number,
+  categories?: string,
+  img?: string,
+}
+
 export const IMG_LIST = [
   "พลเอก-เปรม-ติณสูลานนท์",
   "พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว",

@@ -9,53 +9,10 @@ import dayjs from 'dayjs'
 type Props = {}
 
 const IndividualTimeline = (props: Props) => {
-  const [viz6RawData, setViz6RawData] = React.useState<VIZ6_RAW[]>([])
+  const allPerson = useIndividualStore((state) => state.allPerson)
+  const searchText = useIndividualStore((state) => state.searchText)
+  const setSearchText = useIndividualStore((state) => state.setSearchText)
 
-  const fetchViz6 = React.useCallback(
-    async () => {
-      const csv = await d3.csv<VIZ6_RAW>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz6-individual-sumary-and-period-percentage.csv`, d3.autoType)
-      let viz6Object: VIZ6_RAW[] = []
-      csv.map((data) => {
-        let findIndex = viz6Object.findIndex((item) => item.person === data.person)
-        if (findIndex !== -1) {
-          // remove duplicate person
-          let o = viz6Object[findIndex]
-          viz6Object[findIndex] = {
-            ...o,
-            groups: `${o.groups},${data.groups}`,
-
-          }
-        } else {
-          let img = `bg-${data.person.replaceAll(' ', '-')} grayscale `
-          if (IMG_LIST.indexOf(data.person.replaceAll(' ', '-')) > -1) {
-            console.log(img)
-          } else {
-            switch (data.categories) {
-              case CATEGORY_INFO[0].title:
-                img = 'bg-person-01'; break;
-              case CATEGORY_INFO[1].title:
-                img = 'bg-person-02'; break;
-              case CATEGORY_INFO[2].title:
-                img = 'bg-person-03'; break;
-              case CATEGORY_INFO[3].title:
-                img = 'bg-person-04'; break;
-            }
-          }
-          viz6Object.push({ ...data, img })
-        }
-        setViz6RawData(viz6Object)
-        // console.log(viz6Object)
-      })
-    },
-    [],
-  )
-
-  React.useEffect(() => {
-    fetchViz6()
-  }, [fetchViz6])
-
-
-  const [searchText, setSearchText] = React.useState("")
   const defaultFilter = {
     pm_01: true,
     pm_02: true,
@@ -63,19 +20,26 @@ const IndividualTimeline = (props: Props) => {
     negative: true,
     sort: 'asc',
     year: -1,
+    searchTerm: ''
   }
   const [filter, setFilter] = React.useState(defaultFilter)
 
-  const { setIndividual } = useIndividualStore((state) => state)
+  const { setIndividual, setIsSelectPerson, isSelectPerson } = useIndividualStore((state) => state)
 
   const [searchListToDisplay, setSearchListToDisplay] = React.useState<VIZ6_RAW[]>([])
-  const [isSelectPerson, setIsSelectPerson] = React.useState(false)
+
   React.useEffect(() => {
     if (searchText !== "" && !isSelectPerson)
-      setSearchListToDisplay(viz6RawData.filter((data) =>
+      setSearchListToDisplay(allPerson.filter((data) =>
         data.person.includes(searchText)
       ))
-  }, [searchText, viz6RawData, isSelectPerson])
+    else
+      if (isSelectPerson) {
+        let individual = allPerson.find((data) => data.person === searchText)
+        if (individual)
+          setIndividual(individual)
+      }
+  }, [searchText, allPerson, isSelectPerson, setIndividual])
 
   const individualEventList = useIndividualStore((state) => state.individualEventList)
   const setFilteredEventList = useIndividualStore((state) => state.setFilteredEventList)
@@ -105,6 +69,10 @@ const IndividualTimeline = (props: Props) => {
         event = event.filter(({ score }) => score >= 0)
       }
 
+      if (filter.searchTerm !== "") {
+        event = event.filter((data) => data.title.includes(filter.searchTerm))
+      }
+
       setFilteredEventList(event)
     }
   }, [individualEventList, setFilteredEventList, filter])
@@ -120,7 +88,7 @@ const IndividualTimeline = (props: Props) => {
             </svg>
             <div className='relative'>
               <input type="text" placeholder='ตรวจสอบรายบุคคล' className='text-white wv-kondolar wv-bold 
-                !wv-h6 text-[32px] leading-[140%] bg-transparent border-transparent focus:border-transparent focus:ring-0'
+                !wv-h6 text-[32px] leading-[140%] bg-transparent border-transparent focus:border-transparent focus:ring-0 overflow-hidden'
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 disabled={isSelectPerson}
@@ -178,15 +146,17 @@ const IndividualTimeline = (props: Props) => {
             <div className='flex flex-row gap-x-[10px]'>
               <div className='rounded-[4px] px-[12px] py-[6.5px] inline-flex gap-x-[6px] items-center border-neutral-super-black border-[1px] cursor-pointer'
                 onClick={() => setFilter((prev) => ({ ...prev, pm_01: !prev['pm_01'] }))}>
-                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer' checked={filter.pm_01}
-                  onChange={(e) => setFilter((prev) => ({ ...prev, pm_01: !prev['pm_01'] }))} />
+                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer focus:ring-0' checked={filter.pm_01}
+                // onChange={(e) => setFilter((prev) => ({ ...prev, pm_01: !prev['pm_01'] }))} 
+                />
                 <div className='w-[22px] h-[22px]'><PM_01 /></div>
                 <div className='wv-ibmplex wv-u2 wv-semibold'>รัฐบาลยิ่งลักษณ์</div>
               </div>
               <div className='rounded-[4px] px-[12px] py-[6.5px] inline-flex gap-x-[6px] items-center border-neutral-super-black border-[1px] cursor-pointer'
                 onClick={() => setFilter((prev) => ({ ...prev, pm_02: !prev['pm_02'] }))}>
-                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer' checked={filter.pm_02}
-                  onChange={(e) => setFilter((prev) => ({ ...prev, pm_02: !prev['pm_02'] }))} />
+                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer focus:ring-0' checked={filter.pm_02}
+                // onChange={(e) => setFilter((prev) => ({ ...prev, pm_02: !prev['pm_02'] }))}
+                />
                 <div className='w-[22px] h-[22px]'><PM_02 /></div>
                 <div className='wv-ibmplex wv-u2 wv-semibold'>รัฐบาลประยุทธ์</div>
               </div>
@@ -195,15 +165,17 @@ const IndividualTimeline = (props: Props) => {
             <div className='flex flex-row gap-x-[10px]'>
               <div className='rounded-[4px] px-[12px] py-[6.5px] inline-flex gap-x-[6px] items-center border-neutral-super-black border-[1px] cursor-pointer'
                 onClick={() => setFilter((prev) => ({ ...prev, positive: !prev['positive'] }))}>
-                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer' checked={filter.positive}
-                  onChange={(e) => setFilter((prev) => ({ ...prev, positive: !prev['positive'] }))} />
+                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer focus:ring-0' checked={filter.positive}
+                // onChange={(e) => setFilter((prev) => ({ ...prev, positive: !prev['positive'] }))} 
+                />
                 <div className='w-[14px] h-[14px]'><POSITIVE_ICON_COLOR /></div>
                 <div className='wv-ibmplex wv-u5 wv-semibold'>ผลดี</div>
               </div>
               <div className='rounded-[4px] px-[12px] py-[6.5px] inline-flex gap-x-[6px] items-center border-neutral-super-black border-[1px] cursor-pointer'
                 onClick={() => setFilter((prev) => ({ ...prev, negative: !prev['negative'] }))}>
-                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer' checked={filter.negative}
-                  onChange={(e) => setFilter((prev) => ({ ...prev, negative: !prev['negative'] }))} />
+                <input type={"checkbox"} className='text-neutral-super-black rounded-[2px] cursor-pointer focus:ring-0' checked={filter.negative}
+                // onChange={(e) => setFilter((prev) => ({ ...prev, negative: !prev['negative'] }))}
+                />
                 <div className='w-[14px] h-[14px]'><NEGATIVE_ICON_COLOR /></div>
                 <div className='wv-ibmplex wv-u5 wv-semibold'>ผลเสีย</div>
               </div>
@@ -224,6 +196,28 @@ const IndividualTimeline = (props: Props) => {
                 <option value={2018}>2018</option>
                 <option value={2017}>2017</option>
               </select>
+            </div>
+            <div className='flex flex-row gap-x-[10px] w-full'>
+              <div className='flex flex-row px-[10px] py-[5px] gap-x-[10px] border-black border-[1px] w-full rounded-[4px] items-center'>
+                <input type="text" placeholder='พิมพ์คำที่คุณสนใจ' className='text-black wv-ibmplex flex-1
+                !wv-b4  leading-[140%] bg-transparent border-transparent focus:border-transparent focus:ring-0'
+                  value={filter.searchTerm}
+                  onChange={(e) => setFilter((prev) => ({ ...prev, searchTerm: e.target.value }))}
+
+                />
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5748 10.5578C14.5748 12.8071 12.759 14.6157 10.5374 14.6157C8.3158 14.6157 6.5 12.8071 6.5 10.5578C6.5 8.30855 8.3158 6.5 10.5374 6.5C12.759 6.5 14.5748 8.30855 14.5748 10.5578ZM14.31 16.5169C13.2197 17.2126 11.9255 17.6157 10.5374 17.6157C6.65075 17.6157 3.5 14.4558 3.5 10.5578C3.5 6.6599 6.65075 3.5 10.5374 3.5C14.424 3.5 17.5748 6.6599 17.5748 10.5578C17.5748 11.9764 17.1575 13.2973 16.4393 14.4036L21.0006 18.9967L18.8867 21.1254L14.31 16.5169Z" fill="black" />
+                </svg>
+              </div>
+              <button className='border-black border-[1px] rounded-[4px] wv-ibmplex wv-u5 px-[10px] wv-bold
+              inline-flex items-center gap-x-[4px]'
+                onClick={() => setFilter(defaultFilter)}>
+                <span className='whitespace-nowrap'>ล้าง Filter</span>
+                <svg className='w-[12px] h-[12px]' viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="0.353553" y1="2.14645" x2="14.3536" y2="16.1464" stroke="black" />
+                  <line y1="-0.5" x2="19.799" y2="-0.5" transform="matrix(0.707107 -0.707107 -0.707107 -0.707107 0 16.1499)" stroke="black" />
+                </svg>
+              </button>
             </div>
             <IndividualDataTable />
           </div>

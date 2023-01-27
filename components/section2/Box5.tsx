@@ -1,13 +1,13 @@
 import * as d3 from 'd3'
 import React from 'react'
 import { VIZ6_RAW, VIZ6_TYPE } from '../../models/individual'
+import { useIndividualStore } from '../../store/store'
 import { VIZ2_TYPE } from '../section1/Content4'
-import { CATEGORY_INFO, getCategoryBorderColor, getCategoryIcon, PM_01, PM_02 } from '../utils'
+import { CATEGORY_INFO, getCategoryBorderColor, getCategoryIcon, PM_01, PM_02, scrollInToView } from '../utils'
 
 type Props = {
   setSelectFilter: Function
 }
-
 
 const Box5 = ({ setSelectFilter }: Props) => {
   const FILTER_LIST = React.useMemo(() => [
@@ -83,6 +83,8 @@ const Box5 = ({ setSelectFilter }: Props) => {
   //   console.log(viz6Data["พรรคการเมือง & กลุ่มการเมือง"]!.sort((a, b) => b.count - a.count));
   // console.log(top3Data);
 
+  const { setSearchText, setIsSelectPerson } = useIndividualStore((state) => state)
+
   return (
     <div className='py-[10px] px-[10px] border-dashed border-white border-[1px] rounded-[10px] text-center h-full
               flex flex-col justify-center gap-y-[10px]'>
@@ -154,7 +156,13 @@ const Box5 = ({ setSelectFilter }: Props) => {
                 </div>
               }
               <button className='inline-flex gap-x-[4px] items-center
-                wv-ibmplex wv-4 wv-semibold'>
+                wv-ibmplex wv-4 wv-semibold'
+                onClick={() => {
+                  setSearchText(data.person)
+                  setIsSelectPerson(true)
+                  scrollInToView('section3-individual')
+                }}
+              >
                 ดูเหตุการณ์
                 <svg width={5} height={8} viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M-3.49691e-07 0L0 8L5 4L-3.49691e-07 0Z" fill="white" />

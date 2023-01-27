@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { CATEGORY_INFO, getCategoryBorderColor, LANDING_SVG } from '../utils'
+import { CATEGORY_INFO, getCategoryBorderColor, LANDING_SVG, scrollInToView } from '../utils'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 import * as d3 from 'd3'
 import { displayPartsToString } from 'typescript';
+import { useIndividualStore } from '../../store/store';
 
 export type VIZ2_RAW = {
   id: number,
@@ -92,6 +93,8 @@ const CategorySlide = () => {
   const [prevEl, setPrevEl] = useState<HTMLElement | null>(null)
   const [nextEl, setNextEl] = useState<HTMLElement | null>(null)
 
+  const { setSearchText, setIsSelectPerson } = useIndividualStore((state) => state)
+
   return (
     <div className='mb-[15px]'>
       <div className='flex flex-row justify-center items-center gap-x-[21px] py-[15px]'>
@@ -152,12 +155,17 @@ const CategorySlide = () => {
                     <div className='wv-ibmplex text-left'>
                       <div className='wv-bold wv-b5 leading-[150%]'>{row.person}</div>
                       <div className='wv-b6 leading-[150%]'>{row.count} เหตุการณ์</div>
-                      <div className='mt-[7px] p-[4px] inline-flex items-center gap-[4px]'>
+                      <button className='mt-[7px] p-[4px] inline-flex items-center gap-[4px]'
+                        onClick={() => {
+                          setSearchText(row.person)
+                          setIsSelectPerson(true)
+                          scrollInToView('section3-individual')
+                        }}>
                         <div className='wv-u4 wv-semibold'>ดูเหตุการณ์</div>
                         <svg width={5} height={8} viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M-3.49691e-07 0L0 8L5 4L-3.49691e-07 0Z" fill="white" />
                         </svg>
-                      </div>
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -178,13 +186,14 @@ const Content4 = () => {
       content:
         <div>
           <LANDING_SVG />
-          <div className='border-dashed border-t-[1px] border-t-white w-full
-            py-[10px] inline-flex justify-center items-center gap-x-[8px]'>
+          <button className='border-dashed border-t-[1px] border-t-white w-full
+            py-[10px] inline-flex justify-center items-center gap-x-[8px]'
+            onClick={() => scrollInToView('section2')}>
             <span className='wv-ibmplex wv-semibold wv-u1'>เข้าใจภาพรวมของเหตุการณ์</span>
             <svg width={5} height={9} viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M-3.49691e-07 0.5L0 8.5L5 4.5L-3.49691e-07 0.5Z" fill="white" />
             </svg>
-          </div>
+          </button>
         </div>,
     },
     {
@@ -193,13 +202,14 @@ const Content4 = () => {
       content:
         <div className='relative'>
           <CategorySlide />
-          <div className='border-dashed border-t-[1px] border-t-white w-full
-        py-[10px] inline-flex justify-center items-center gap-x-[8px]'>
-            <span className='wv-ibmplex wv-semibold wv-u1'>เข้าใจภาพรวมของเหตุการณ์</span>
+          <button className='border-dashed border-t-[1px] border-t-white w-full
+        py-[10px] inline-flex justify-center items-center gap-x-[8px]'
+            onClick={() => scrollInToView('section3-individual')}>
+            <span className='wv-ibmplex wv-semibold wv-u1'>สำรวจตัวละครทั้งหมด</span>
             <svg width={5} height={9} viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M-3.49691e-07 0.5L0 8.5L5 4.5L-3.49691e-07 0.5Z" fill="white" />
             </svg>
-          </div>
+          </button>
         </div>,
     },
   ]

@@ -31,6 +31,7 @@ const IndividualInfo = (props: Props) => {
 
   const [selectFilter, setSelectFilter] = React.useState('')
   const individual = useIndividualStore((state) => state.individual)
+  const relatedList = useIndividualStore((state) => state.relatedList)
   return (
     <>
       {
@@ -58,7 +59,7 @@ const IndividualInfo = (props: Props) => {
                 <div className='w-[48px] h-[48px]'><PM_01 /></div>
                 <div>
                   <div className='wv-ibmplex wv-b6 wv-bold'>รัฐบาลยิ่งลักษณ์</div>
-                  <div className='wv-ibmplex wv-b6'>{individual.total_event} เหตุการณ์</div>
+                  <div className='wv-ibmplex wv-b6'>{individual.period_1_total} เหตุการณ์</div>
                   <div>
                     <div className='flex flex-row justify-start items-center gap-x-1'>
                       <div className='w-[12px] h-[12px]'><POSITIVE_BW /></div>
@@ -81,7 +82,7 @@ const IndividualInfo = (props: Props) => {
                 <div className='w-[48px] h-[48px]'><PM_02 /></div>
                 <div>
                   <div className='wv-ibmplex wv-b6 wv-bold'>รัฐบาลประยุทธ์</div>
-                  <div className='wv-ibmplex wv-b6'>{individual.total_event} เหตุการณ์</div>
+                  <div className='wv-ibmplex wv-b6'>{individual.period_2_total} เหตุการณ์</div>
                   <div>
                     <div className='flex flex-row justify-start items-center gap-x-1'>
                       <div className='w-[12px] h-[12px]'><POSITIVE_BW /></div>
@@ -106,15 +107,18 @@ const IndividualInfo = (props: Props) => {
               <div className='border-[1px] border-dashed h-[1px] w-full ' />
             </div>
             <div className='flex flex-row gap-x-[8px]'>
-              <div className={`flex-shrink-0 ${getCategoryBorderColor(individual.categories)} border-[4px] rounded-full w-[30px] h-[30px]`} >
-                <div className={`${individual.img} grayscale bg-contain w-full h-full rounded-full`} />
-              </div>
-              <div className={`flex-shrink-0 ${getCategoryBorderColor(individual.categories)} border-[4px] rounded-full w-[30px] h-[30px]`} >
-                <div className={`${individual.img} grayscale bg-contain w-full h-full rounded-full`} />
-              </div>
-              <div className={`flex-shrink-0 ${getCategoryBorderColor(individual.categories)} border-[4px] rounded-full w-[30px] h-[30px]`} >
-                <div className={`${individual.img} grayscale bg-contain w-full h-full rounded-full`} />
-              </div>
+              {relatedList.map((data) => (
+                <div key={`related-${data.person}`} className={`flex-shrink-0 ${data.categories && getCategoryBorderColor(data.categories)} 
+                  border-[4px] rounded-full w-[30px] h-[30px]
+                  group relative
+                  `} >
+                  <div className={`${data.img} bg-contain w-full h-full rounded-full`} />
+                  <div className='group-hover:opacity-100 opacity-0  -translate-x-1/2 w-[10rem] absolute -top-3 -translate-y-full bg-white text-black
+                    rounded-[4px] z-30 p-[4px]'>
+                    <div className='text-center wv-ibmplex wv-bold wv-b6'>{data.person}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
