@@ -77,7 +77,7 @@ const AllPartiesSearch = (props: Props) => {
   }, [filteredPersonList, filter.orderBy, setFilteredPersonList,])
 
   return (
-    <div className='max-w-[480px] '>
+    <div className='w-screen max-w-[480px] overflow-hidden'>
       {/* <div className='relative flex flex-row justify-center items-center rounded-[10px] px-[10px] border-white border-[1px]'>
         <div className='inline-flex items-center gap-x-[10px]'>
           <svg className='w-[24px] h-[25px] ml-auto' viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +98,7 @@ const AllPartiesSearch = (props: Props) => {
           </defs>
         </svg>
       </div> */}
-      <div className='mt-[8px] overflow-y-scroll bg-white text-neutral-super-black rounded-[10px] py-[20px] px-[12px]
+      <div className='mt-[8px]  bg-white text-neutral-super-black rounded-[10px] py-[20px] px-[12px]
           flex flex-col gap-y-[10px] justify-center items-center'>
         <div className='flex flex-row gap-x-[8px] items-center w-full'>
           <div className='flex-shrink-0 wv-ibmplex wv-semibold wv-u3'>เลือกกลุ่ม</div>
@@ -124,7 +124,7 @@ const AllPartiesSearch = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-row gap-x-[8px] items-center'>
+        <div className='flex flex-row gap-x-[8px] items-center w-full'>
           <div className='flex-shrink-0 wv-ibmplex wv-semibold wv-u3'>เรียงตาม</div>
           <div className=' mx-auto overflow-x-scroll'>
             <div className='flex flex-row flex-grow gap-x-[6px]'>

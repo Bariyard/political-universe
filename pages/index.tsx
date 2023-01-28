@@ -1,16 +1,16 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 // import TestBTN from '../components/TestBTN';
 // import TestStyle from '../components/TestStyle';
 
-import WvNavbar from '@wevisdemo/ui/react/navbar';
-import WvNavButton from '@wevisdemo/ui/react/nav-button';
 import WvFooter from '@wevisdemo/ui/react/footer';
-import { useRouter, usePathname } from 'next/navigation'
+import WvNavButton from '@wevisdemo/ui/react/nav-button';
+import WvNavbar from '@wevisdemo/ui/react/navbar';
+import { usePathname, useRouter } from 'next/navigation';
+import Outro from '../components/Outro';
 import Section1 from '../components/section1';
 import Section2 from '../components/section2/index';
 import Section3 from '../components/section3';
-import Outro from '../components/Outro';
 
 export default function Home() {
   const router = useRouter();
@@ -38,10 +38,8 @@ export default function Home() {
       </WvNavbar>
       <Section1 />
       <Section2 />
-      {/*<Section3 /> */}
+      <Section3 />
       <Outro />
-      {/* <TestBTN /> */}
-      {/* <TestStyle /> */}
       <WvFooter />
     </div>
   )

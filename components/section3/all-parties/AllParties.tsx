@@ -77,10 +77,12 @@ const AllParties = (props: Props) => {
 
 
   return (
-    <div id='section3-allparties' className='min-h-screen flex flex-row gap-x-[66px] max-w-[1170px] mx-auto'>
+    <div id='section3-allparties' className='min-h-screen flex flex-col gap-x-[66px] w-full max-w-[1170px] mx-auto
+      justify-center items-center 
+      desktop:flex-row'>
       <div className='w-full '>
         <div className='wv-kondolar wv-bold wv-h8 !mb-[12px] text-center'>ภาพรวมเหตุการณ์การเมืองย้อนหลังกว่า 10 ปี</div>
-        <div className='flex flex-col justify-center h-full max-h-[80vh]'>
+        <div className='hidden tablet:flex flex-col justify-center h-full max-h-[80vh]'>
           <DynamicIndividualChart step={5} selectFilter={""} csvData={[...series4, ...series3, ...series1, ...series2,]} />
         </div>
       </div>

@@ -386,7 +386,7 @@ const IndividualChart = ({ step, selectFilter, csvData }: Props) => {
 
 
   return (
-    <div id='chart' className='w-[600px] my-auto'>
+    <div id='chart' className='w-full desktop:w-[600px] my-auto'>
       <ReactApexChart
         id="apex-chart"
         type={"area"}
