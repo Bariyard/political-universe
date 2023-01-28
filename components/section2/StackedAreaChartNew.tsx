@@ -367,7 +367,7 @@ const StackedAreaChartNew = ({ step }: Props) => {
 
 
   return (
-    <div id='chart' className='w-[600px] my-auto'>
+    <div id='chart' className='w-screen desktop:w-[600px] my-auto'>
       <ReactApexChart
         id="apex-chart"
         type={"area"}

@@ -328,7 +328,7 @@ const AreaBox4ChartNew = ({ series }: Props) => {
 
 
   return (
-    <div id='chart-box4' className='w-[600px] my-auto'>
+    <div id='chart-box4' className='w-[70%] desktop:w-[600px] my-auto'>
       <ReactApexChart
         id="apex-chart-box4"
         height={130}

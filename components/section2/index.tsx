@@ -109,8 +109,9 @@ const Section2 = (props: Props) => {
 
 
   return (
-    <div id='section2' className='max-w-[1100px] mx-auto'>
-      <div className='flex flex-row items-center min-h-screen'>
+    <div id='section2' className='max-w-[1100px] mx-auto flex flex-col gap-y-[36px]'>
+      <div className='flex flex-col items-center min-h-screen
+        desktop:flex-row'>
         <div className='flex-grow'>
           <div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมือง ย้อนหลัง  10 ปี</div>
           <DynamicStackedAreaChart step={0} />
@@ -119,25 +120,32 @@ const Section2 = (props: Props) => {
           <Box1 key={`box-1`} opacity={0.5} />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
+      <div className='flex flex-col items-center min-h-screen
+        desktop:flex-row'>
         <div className='flex-grow'><div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมือง ย้อนหลัง  10 ปี</div><DynamicStackedAreaChart step={1} /></div>
         <div className='w-[360px] h-fit'>
           <Box1 key='box-2' />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
+      <div className='flex flex-col items-center min-h-screen
+        desktop:flex-row'>
         <div className='flex-grow'><div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมือง ย้อนหลัง  10 ปี</div><DynamicStackedAreaChart step={2} /></div>
         <div className='w-[360px] h-fit'>
           <Box3 />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
-        <div className='flex-grow'><div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมืองแยกตามกลุ่มการเมืองย้อนหลัง  10 ปี</div><Box4ChartCollection /></div>
+      <div className='flex flex-col items-center min-h-screen
+        desktop:flex-row'>
+        <div className='flex-grow flex flex-col items-center'>
+          <div className='wv-kondolar wv-bold wv-h8 text-center !mb-[12px]'>ภาพรวมเหตุการณ์ทางการเมืองแยกตามกลุ่มการเมืองย้อนหลัง  10 ปี</div>
+          <Box4ChartCollection />
+        </div>
         <div className='w-[360px] h-fit'>
           <Box4 />
         </div>
       </div>
-      <div className='flex flex-row items-center min-h-screen'>
+      <div className='flex flex-col items-center min-h-screen
+        desktop:flex-row'>
         <div className='flex-grow'><DynamicBox5ChartNew step={5} selectFilter={selectFilter} csvData={csvData} /></div>
         <div className='w-[360px] h-fit'>
           <Box5 setSelectFilter={setSelectFilter} />
