@@ -82,6 +82,9 @@ module.exports = {
         "small-shadow": "0px 2px 4px rgba(0, 0, 0, 0.08)",
         "regular-shadow": "0px 8px 16px rgba(0, 0, 0, 0.15)",
         "large-shadow": "0px 16px 48px rgba(0, 0, 0, 0.18)"
+      },
+      listStyleType: {
+        alpha: "lower-alpha"
       }
     }
   },

@@ -21,7 +21,6 @@ const Outro = (props: Props) => {
         </div>
         <div className='wv-kondolar wv-h8 leading-[140%] '>
           นำมาสู่เรื่องที่ว่า ตัวละครในการเมืองไทยควรที่จะถูกจดจำ หรือรับรู้อย่างไร
-          Share
         </div>
         <WvSharer light outline url={`${process.env.BASE_URL}${process.env.BASE_PATH}`} />
       </div >
