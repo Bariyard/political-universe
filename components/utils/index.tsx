@@ -192,7 +192,7 @@ export const NEGATIVE_BW = () =>
 
 
 export const LANDING_SVG = () =>
-  <svg width={309} height={335} viewBox="0 0 309 335" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg className="w-full h-full" viewBox="0 0 309 335" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clipPath="url(#clip0_413_434388)">
       <rect x="109.391" y="90.8755" width="23.7597" height="5.93991" fill="#ABFFF5" />
       <rect x="124.24" y="81.9658" width="23.7597" height="5.93991" transform="rotate(90 124.24 81.9658)" fill="#ABFFF5" />

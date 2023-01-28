@@ -77,7 +77,8 @@ const Content3 = (props: Props) => {
 
   return (
     <div className='flex flex-col items-center text-center
-    max-w-[740px] mx-auto mb-[140px]'>
+    p-[10px]
+    max-w-[740px] mx-auto tablet:mb-[140px]'>
       <div className='flex flex-col gap-y-[30px]'>
         <div className='wv-kondolar wv-h4 wv-black leading-[125%]'>
           เหตุการณ์ +/- คืออะไร
@@ -85,11 +86,13 @@ const Content3 = (props: Props) => {
         <div className='wv-ibmplex wv-b3 leading-[150%] max-w-[487px] !mx-auto'>
           ข้อมูลที่แสดงว่าตัวละครการเมืองไทยที่ถูกคัดเลือกมา มีการกระทำ หรือถูกพาดพิงในการกระทำที่สร้างผลดีหรือผลลบต่อสมัยรัฐบาลช่วงเวลานั้น ๆ โดยสามารถอธิบายได้ดังนี้
         </div>
-        <div className='flex flex-row gap-[20px] text-neutral-super-black'>
+        <div className='flex flex-row gap-[20px] text-neutral-super-black overflow-x-scroll w-screen 
+          tablet:w-auto tablet:justify-center'>
           {CONTENT.map((data, index) => (
             <div key={`desc-${index}`}
-              className='bg-white rounded-[10px] px-[15px] py-[20px]
-                flex flex-col items-center desktop:w-1/2 h-fit'>
+              className='bg-white rounded-[10px] px-[15px] py-[20px] w-[260px] flex-shrink-0
+              tablet:w-[45%] 
+                flex flex-col items-center desktop:w-1/2 desktop:flex-shrink h-fit'>
               <div className='wv-kondolar wv-h7 wv-black 
                  !mb-[8px] text-center'>
                 {data.title}

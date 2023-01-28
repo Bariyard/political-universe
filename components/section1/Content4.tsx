@@ -185,7 +185,7 @@ const Content4 = () => {
       description: <div>ดูภาพรวมของการเมืองไทย 10<br />กว่าปีที่ผ่านมา ว่าเป็นอย่างไรบ้าง ?</div>,
       content:
         <div>
-          <LANDING_SVG />
+          <div className='w-full'><LANDING_SVG /></div>
           <button className='border-dashed border-t-[1px] border-t-white w-full
             py-[10px] inline-flex justify-center items-center gap-x-[8px]'
             onClick={() => scrollInToView('section2')}>
@@ -215,7 +215,7 @@ const Content4 = () => {
   ]
   return (
     <div className='flex flex-col items-center text-center
-    max-w-[890px] mx-auto mb-[140px]'>
+    max-w-[890px] mx-auto mb-[140px] p-[10px]'>
       <div className='hidden'>
         <div className='hidden bg-พลเอก-เปรม-ติณสูลานนท์' />
         <div className='hidden bg-พระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว' />
@@ -237,12 +237,14 @@ const Content4 = () => {
         <div className='wv-kondolar wv-h4 wv-black leading-[125%]'>
           เลือกสำรวจ
         </div>
-        <div className='flex flex-row gap-[20px] text-neutral-super-black'>
+        <div className='flex flex-col gap-[20px] text-neutral-super-black
+        tablet:flex-row'>
           {CONTENT.map((data, index) => (
             <div key={`desc-${index}`}
               className='bg-neutral-super-black rounded-[10px] border-[1px] border-neutral-super-white
-            px-[40px] py-[25px] text-neutral-super-white
-            flex flex-col items-center desktop:w-1/2'>
+              px-[10px] py-[20px]
+              desktop:px-[40px] desktop:py-[25px] text-neutral-super-white
+              flex flex-col items-center tablet:w-1/2'>
               <div className='wv-kondolar wv-h6 wv-bold
                  !mb-[10px] text-center'>
                 {data.title}

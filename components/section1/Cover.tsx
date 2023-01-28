@@ -7,7 +7,7 @@ const Cover = (props: Props) => {
   return (
     <div className='relative w-screen h-screen 
       bg-[url("/design_assets/02_landing_items/bg.svg")]
-      bg-cover bg-center bg-no-repeat
+      bg-contain bg-top desktop:bg-cover desktop:bg-center bg-no-repeat
       flex flex-col justify-center items-center'>
       <WvContainer>
         <div className='text-center flex flex-col gap-y-[10px] mb-[41px] desktop:mb-auto'>
@@ -32,7 +32,6 @@ const Cover = (props: Props) => {
             <path d="M6.79289 30.7071C7.18342 31.0976 7.81658 31.0976 8.20711 30.7071L14.5711 24.3431C14.9616 23.9526 14.9616 23.3195 14.5711 22.9289C14.1805 22.5384 13.5474 22.5384 13.1569 22.9289L7.5 28.5858L1.84315 22.9289C1.45262 22.5384 0.819458 22.5384 0.428933 22.9289C0.0384088 23.3195 0.0384088 23.9526 0.428933 24.3431L6.79289 30.7071ZM6.5 4.37114e-08L6.5 30L8.5 30L8.5 -4.37114e-08L6.5 4.37114e-08Z" fill="white" />
           </svg>
         </button>
-
       </WvContainer>
     </div>
 

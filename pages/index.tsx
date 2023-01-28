@@ -37,8 +37,8 @@ export default function Home() {
         <WvNavButton active={pathname === '/about'} onClick={() => router.replace('/about')}>About</WvNavButton>
       </WvNavbar>
       <Section1 />
-      <Section2 />
-      <Section3 />
+      {/* <Section2 />
+      <Section3 /> */}
       <Outro />
       {/* <TestBTN /> */}
       {/* <TestStyle /> */}
