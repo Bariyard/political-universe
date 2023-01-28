@@ -1,28 +1,35 @@
 import React from 'react'
-import { useIndividualStore } from '../../store/store'
+import { useIndividualStore } from '../../store/individual'
 import AllPartiesSearch from './all-parties/AllPartiesSearch'
 import Individual from './individual/Individual'
 import * as d3 from 'd3'
-import { IMG_LIST, VIZ6_RAW } from '../../models/individual'
+import { IMG_LIST, VIZ6_RAW, VIZ6_TYPE } from '../../models/individual'
 import { CATEGORY_INFO } from '../utils'
+import { useAllPartiesStore } from '../../store/all-parties'
+import AllParties from './all-parties/AllParties'
 type Props = {}
 
 const Section3 = (props: Props) => {
-  const setAllPerson = useIndividualStore((state) => state.setAllPerson)
+  const { setAllPerson } = useIndividualStore((state) => state)
+  const { setAllPersonGroup } = useAllPartiesStore((state) => state)
   const fetchViz6 = React.useCallback(
     async () => {
       const csv = await d3.csv<VIZ6_RAW>(`${process.env.HOST}${process.env.BASE_PATH}/data/analysed/viz6-individual-sumary-and-period-percentage.csv`, d3.autoType)
       let viz6Object: VIZ6_RAW[] = []
       csv.map((data) => {
-        let findIndex = viz6Object.findIndex((item) => item.person === data.person)
+        let findIndex = viz6Object.findIndex((item) => item.person === data.person && item.categories === data.categories)
+
         if (findIndex !== -1) {
           // remove duplicate person
           let o = viz6Object[findIndex]
+          console.log(viz6Object[findIndex]);
           viz6Object[findIndex] = {
             ...o,
             groups: `${o.groups},${data.groups}`,
 
           }
+          console.log(viz6Object[findIndex]);
+
         } else {
           let img = `bg-${data.person.replaceAll(' ', '-')} grayscale `
           if (IMG_LIST.indexOf(data.person.replaceAll(' ', '-')) > -1) {
@@ -41,11 +48,26 @@ const Section3 = (props: Props) => {
           }
           viz6Object.push({ ...data, img })
         }
-        setAllPerson(viz6Object)
-        // console.log(viz6Object)
+
       })
+      setAllPerson(viz6Object)
+
+      let viz6ObjectGroup: VIZ6_TYPE = Object.fromEntries(Array.from(new Set(csv.map((data) => data.categories))).map(key => [key, []]));
+      viz6Object.map(({
+        categories,
+        ...rest
+      }) => {
+        viz6ObjectGroup[categories] = [...viz6ObjectGroup[categories], { categories, ...rest }]
+      })
+
+      setAllPersonGroup(viz6ObjectGroup)
+      console.log(csv);
+
+      console.log(viz6Object)
+      console.log(viz6ObjectGroup)
+
     },
-    [setAllPerson],
+    [setAllPerson, setAllPersonGroup],
   )
 
   React.useEffect(() => {
@@ -59,9 +81,7 @@ const Section3 = (props: Props) => {
       <div className='hidden bg-person-03' />
       <div className='hidden bg-person-04' />
       <Individual />
-      <div className='min-h-screen'>
-        <AllPartiesSearch />
-      </div>
+      <AllParties />
     </div>
   )
 }

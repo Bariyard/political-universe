@@ -1,5 +1,5 @@
 import React from 'react'
-import { useIndividualStore } from '../../../store/store'
+import { useIndividualStore } from '../../../store/individual'
 import EventCard from '../../EventCard'
 import { NotFound } from '../../utils'
 

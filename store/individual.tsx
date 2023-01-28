@@ -1,9 +1,9 @@
-import { create } from 'zustand'
-import { INDIVIDUAL_DATA_TYPE, RELATED_DATA_TYPE, VIZ6_RAW } from '../models/individual'
 import * as d3 from 'd3'
-import { EVENT_TYPE } from '../models/event'
-import { CHART_DATA_TYPE, processData } from '../models/chart'
 import dayjs from 'dayjs'
+import { create } from 'zustand'
+import { CHART_DATA_TYPE, processData } from '../models/chart'
+import { EVENT_TYPE } from '../models/event'
+import { INDIVIDUAL_DATA_TYPE, RELATED_DATA_TYPE, VIZ6_RAW } from '../models/individual'
 interface IndividualState {
   allPerson: VIZ6_RAW[]
   setAllPerson: (by: VIZ6_RAW[]) => void
@@ -43,7 +43,7 @@ export const useIndividualStore = create<IndividualState>()((set) => ({
       individual: { ...state.individual, ...by },
       individualAgg: aggData,
       individualEventList: csvEventList,
-      relatedList: csvRelate.slice(1, 3).map((relatedPerson) => {
+      relatedList: csvRelate.slice().splice(1, 3).map((relatedPerson) => {
         let person = state.allPerson.find((data) => data.person === relatedPerson.person)
         return { ...relatedPerson, img: person?.img, categories: person?.categories }
       })
@@ -55,5 +55,5 @@ export const useIndividualStore = create<IndividualState>()((set) => ({
   setFilteredEventList: (by) => {
     return set((state) => ({ ...state, filteredEventList: by }))
   },
-  relatedList: []
+  relatedList: [],
 }))

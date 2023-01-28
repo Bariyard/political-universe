@@ -1,11 +1,10 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { useIndividualStore } from '../../../store/store'
+import { useIndividualStore } from '../../../store/individual'
 import IndividualInfo from './IndividualInfo'
 import IndividualTimeline from './IndividualTimeline'
 
 type Props = {}
-
 
 const DynamicIndividualChart = dynamic(
   () => import('./IndividualChart'),

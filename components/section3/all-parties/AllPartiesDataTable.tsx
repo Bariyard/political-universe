@@ -1,8 +1,12 @@
 import React from 'react'
+import { useAllPartiesStore } from '../../../store/all-parties'
 import EventCard from '../../EventCard'
 import MemberCard from '../../MemberCard'
+import { NotFoundGroup } from '../../utils'
 
-type Props = {}
+type Props = {
+  resetFilter: Function
+}
 
 
 const DATA = [
@@ -18,14 +22,12 @@ const DATA = [
   { person: "จิรวัฒน์ อรัณยกานนท์", total_event: 213, category: "ศาล & องค์กรอิสระ" },
 ]
 
-const AllPartiesDataTable = (props: Props) => {
+const AllPartiesDataTable = ({ resetFilter }: Props) => {
   const numItemsPerPage = 50;
 
   const [currentPage, setCurrentPage] = React.useState(0)
   const [numPage, setNumPage] = React.useState(Math.ceil(DATA.length / numItemsPerPage))
-  const renderPagination = () => {
-
-
+  const renderPagination = React.useCallback(() => {
     let content = [];
     for (let i = 0; i < numPage; i++) {
       content.push(<button key={`page-${i}`} className={`border-black border-[1px] rounded-[2px] w-[24px] h-[24px]
@@ -34,12 +36,20 @@ const AllPartiesDataTable = (props: Props) => {
         onClick={() => setCurrentPage(i)}>{i + 1}</button>);
     }
     return content;
-  }
+  }, [currentPage, numPage])
+
+  const { filteredPersonList } = useAllPartiesStore((state) => state)
+
+  React.useEffect(() => {
+    if (filteredPersonList.length)
+      setNumPage(Math.ceil(filteredPersonList.length / numItemsPerPage))
+  }, [filteredPersonList])
+
 
   return (
-    <div>
+    <div className='w-full'>
       <div className='flex flex-row-reverse justify-between items-center p-[10px] mb-[6px]'>
-        <div className='wv-ibmplex wv-b4'>{`- ${DATA.length} เหตุการณ์ -`}</div>
+        <div className='wv-ibmplex wv-b4'>{`- ${filteredPersonList.length} คน -`}</div>
         <div className='flex flex-row  gap-x-[2px]'>
           <button className='border-black border-[1px] rounded-[2px] w-[24px] h-[24px]
             inline-flex justify-center items-center disabled:opacity-20' disabled={currentPage === 0}
@@ -59,9 +69,24 @@ const AllPartiesDataTable = (props: Props) => {
         </div>
       </div>
       <div className='flex flex-col gap-y-[6px] max-h-[45vh] overflow-y-scroll'>
-        {DATA.slice(numItemsPerPage * currentPage, numItemsPerPage * currentPage + numItemsPerPage).map((data, index) => (
+        {filteredPersonList.slice(numItemsPerPage * currentPage, numItemsPerPage * currentPage + numItemsPerPage).map((data, index) => (
           <div key={`filter-data-${index}`}><MemberCard {...data} /></div>
         ))}
+        {filteredPersonList.length <= 0 &&
+          <div className='border-[1px] border-black rounded-[4px]'>
+            <div className='flex flex-col justify-center items-center p-2 gap-y-2'>
+              <div className='wv-kondolar wv-bold wv-h8'>ไม่พบบุคคลที่คุณค้นหา</div>
+              <div className='w-[210px] h-[118px]'>
+                <NotFoundGroup />
+              </div>
+              <button className='border-[1px] border-black py-[10px] text-center w-full wv-ibmplex wv-semibold wv-u1'
+                onClick={() => resetFilter()}>
+                ยกเลิกการค้นหา
+              </button>
+            </div>
+
+          </div>
+        }
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { useIndividualStore } from '../../../store/store'
+import { useIndividualStore } from '../../../store/individual'
 import { getCategoryBorderColor, getCategoryBGColor, PM_01, PM_02, POSITIVE_BW, NEGATIVE_BW } from '../../utils'
 
 type Props = {}
@@ -30,8 +30,8 @@ const IndividualInfo = (props: Props) => {
   }
 
   const [selectFilter, setSelectFilter] = React.useState('')
-  const individual = useIndividualStore((state) => state.individual)
-  const relatedList = useIndividualStore((state) => state.relatedList)
+  const { setSearchText, setIsSelectPerson, individual, relatedList } = useIndividualStore((state) => state)
+
   return (
     <>
       {
@@ -110,8 +110,14 @@ const IndividualInfo = (props: Props) => {
               {relatedList.map((data) => (
                 <div key={`related-${data.person}`} className={`flex-shrink-0 ${data.categories && getCategoryBorderColor(data.categories)} 
                   border-[4px] rounded-full w-[30px] h-[30px]
-                  group relative
-                  `} >
+                  group relative cursor-pointer
+                  `}
+                  onClick={() => {
+                    setSearchText(data.person)
+                    setIsSelectPerson(true)
+
+                  }}
+                >
                   <div className={`${data.img} bg-contain w-full h-full rounded-full`} />
                   <div className='group-hover:opacity-100 opacity-0  -translate-x-1/2 w-[10rem] absolute -top-3 -translate-y-full bg-white text-black
                     rounded-[4px] z-30 p-[4px]'>

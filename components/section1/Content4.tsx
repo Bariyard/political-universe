@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import * as d3 from 'd3'
 import { displayPartsToString } from 'typescript';
-import { useIndividualStore } from '../../store/store';
+import { useIndividualStore } from '../../store/individual';
 
 export type VIZ2_RAW = {
   id: number,

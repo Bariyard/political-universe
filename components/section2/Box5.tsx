@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import React from 'react'
 import { VIZ6_RAW, VIZ6_TYPE } from '../../models/individual'
-import { useIndividualStore } from '../../store/store'
+import { useIndividualStore } from '../../store/individual'
 import { VIZ2_TYPE } from '../section1/Content4'
 import { CATEGORY_INFO, getCategoryBorderColor, getCategoryIcon, PM_01, PM_02, scrollInToView } from '../utils'
 
